@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="description" content="Light Lab — an aperture, lens, and caustic-pool module for intro physics, media-arts, and instructional design. Occlusion becomes volumetric shafts. Refraction becomes a caustic pool." />
+<meta name="theme-color" content="#05060a" />
+<title>Light Lab · Aperture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+    --font-sans: "Instrument Sans", system-ui, sans-serif;
+    --font-mono: "Space Mono", ui-monospace, monospace;
+    --ink: #05060a;
+    --paper: #f2ebe0;
+    --mute: rgba(242, 235, 224, 0.62);
+    --line: rgba(242, 235, 224, 0.16);
+    --accent: #f0c24b;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; height: 100%; overflow: hidden;
+    background: var(--ink); color: var(--paper);
+    font-family: var(--font-sans);
+    color-scheme: dark;
+    touch-action: none;
+    overscroll-behavior: none;
+  }
+  #stage { position: fixed; inset: 0; z-index: 0; }
+  #stage canvas { display: block; width: 100%; height: 100%; }
+  .veil {
+    position: fixed; inset: 0; z-index: 1; pointer-events: none;
+    background: radial-gradient(ellipse 72% 62% at 50% 40%, transparent 0%, transparent 46%, rgba(0, 0, 0, 0.38) 100%);
+  }
+  .layer { position: fixed; inset: 0; z-index: 2; pointer-events: none; }
+  .topbar {
+    position: absolute;
+    top: max(18px, env(safe-area-inset-top));
+    left: max(18px, env(safe-area-inset-left));
+    right: max(18px, env(safe-area-inset-right));
+    display: flex; justify-content: space-between; gap: 12px; align-items: flex-start;
+  }
+  .brand {
+    font-family: var(--font-mono);
+    font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+    padding: 10px 14px; border-radius: 999px; border: 1px solid var(--line);
+    background: rgba(5, 6, 10, 0.55); backdrop-filter: blur(12px);
+  }
+  .pills { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+  .pill {
+    border: 1px solid var(--line); background: rgba(5, 6, 10, 0.55);
+    color: var(--paper); border-radius: 999px; padding: 10px 14px;
+    font-family: var(--font-mono);
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    text-decoration: none; backdrop-filter: blur(12px);
+  }
+  .pill.tech { letter-spacing: 0.08em; color: rgba(242, 235, 224, 0.82); }
+  .title-block {
+    position: absolute;
+    left: max(18px, env(safe-area-inset-left));
+    top: 50%; transform: translateY(-58%);
+    max-width: 22ch; pointer-events: none;
+  }
+  .title-block .kicker {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--mute); margin: 0 0 10px;
+  }
+  .title-block h1 {
+    margin: 0; font-family: var(--font-display); font-optical-sizing: auto;
+    font-weight: 700; font-stretch: condensed;
+    font-size: clamp(2.4rem, 5vw, 4.2rem);
+    line-height: 0.92; letter-spacing: -0.045em;
+  }
+  .title-block p {
+    margin: 14px 0 0; color: var(--mute); font-size: 13px; line-height: 1.45; max-width: 28ch;
+  }
+  .hud {
+    position: absolute;
+    left: max(18px, env(safe-area-inset-left));
+    right: max(18px, env(safe-area-inset-right));
+    bottom: max(18px, env(safe-area-inset-bottom));
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 16px;
+  }
+  .caption {
+    max-width: 52ch; padding: 14px 16px; border-radius: 16px;
+    border: 1px solid var(--line); background: rgba(5, 6, 10, 0.62);
+    backdrop-filter: blur(14px); pointer-events: auto;
+  }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 8px; }
+  .tag {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em;
+    color: var(--accent);
+    border: 1px solid rgba(240, 194, 75, 0.35); border-radius: 999px;
+    padding: 4px 8px; margin: 0;
+  }
+  .caption h2 {
+    margin: 0; font-family: var(--font-display); font-weight: 650;
+    font-size: 1.35rem; letter-spacing: -0.03em; line-height: 1.1;
+  }
+  .caption p { margin: 8px 0 0; font-size: 12px; color: var(--mute); line-height: 1.45; }
+  .caption a { color: var(--accent); }
+  .caption a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .keys {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--mute); text-align: right;
+    padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line);
+    background: rgba(5, 6, 10, 0.55); backdrop-filter: blur(10px);
+    max-width: 28ch;
+  }
+  .keys strong { color: var(--paper); font-weight: 400; }
+  .error {
+    position: fixed; inset: auto 14px 14px 14px; z-index: 9; display: none;
+    background: #3a1212; color: #ffd6d6; padding: 12px 14px; border-radius: 10px;
+    white-space: pre-wrap; font-family: var(--font-mono); font-size: 12px;
+  }
+  body.embed .layer, body.embed .veil, body.embed .error { display: none !important; }
+  html.embed, body.embed { background: transparent !important; }
+  body.embed #stage canvas { background: transparent !important; }
+  html.embed.wall, body.embed.wall { background: #07060c !important; }
+  body.embed.wall #stage canvas { background: #07060c !important; }
+  @media (max-width: 720px) {
+    .title-block { display: none; }
+    .hud { flex-direction: column; align-items: stretch; }
+    .keys { text-align: left; }
+    .topbar { flex-direction: column; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .veil, .layer { backdrop-filter: none; }
+  }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<script>
+(function () {
+  const q = new URLSearchParams(location.search);
+  const emb = q.has('embed');
+  const wall = q.has('wall') || q.get('opaque') === '1';
+  if (!emb) return;
+  document.body.classList.add('embed');
+  document.documentElement.classList.add('embed');
+  if (wall) {
+    document.body.classList.add('wall');
+    document.documentElement.classList.add('wall');
+  }
+})();
+</script>
+<div id="stage" aria-label="Light Lab stage"></div>
+<div class="veil" aria-hidden="true"></div>
+<div class="layer">
+  <div class="topbar">
+    <div class="brand">Light Lab</div>
+    <div class="pills">
+      <div class="pill tech" id="path-pill">One context</div>
+      <div class="pill tech" id="motion-pill">Live</div>
+    </div>
+  </div>
+  <div class="title-block">
+    <p class="kicker">Course sample · module 01</p>
+    <h1>Light<br/>Lab</h1>
+    <p>How a beam bends, focuses, and scatters — one aperture, one lens.</p>
+  </div>
+  <div class="hud">
+    <div class="caption">
+      <div class="tags">
+        <p class="tag">occlusion → volumetric shafts</p>
+        <p class="tag">refraction → caustic pool</p>
+      </div>
+      <h2>Aperture</h2>
+      <p id="craft-note">Light Lab — a short module for intro physics, media-arts, and instructional design. Mullions occlude the beam into shafts. The lens bends what gets through into the pool. Dust in the beam = scatter. Desktop draws the shafts with an occlusion-map radial blur on one WebGL context. Narrow screens, a coarse pointer, or <a href="?safe=1">?safe=1</a> skip EffectComposer and use additive shaft quads. <a href="?still=1">?still=1</a> and reduced motion hold the scene.</p>
+    </div>
+    <div class="keys"><strong>Drag</strong> orbit · <strong>scroll</strong> dolly</div>
+  </div>
+</div>
+<div class="error" id="err"></div>
+<script type="module" src="./main.js"></script>
+</body>
+</html>
