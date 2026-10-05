@@ -45,8 +45,8 @@
   <a href="aperture.html" data-lab>Aperture</a>
 </nav>
 <div class="stamps">
-  <p class="stamp" id="path-pill">One context</p>
-  <p class="stamp" id="motion-pill">Live</p>
+  <p class="stamp">A real focus meets</p>
+  <p class="stamp">A virtual focus does not</p>
 </div>
 <div class="dock">
   <aside class="ticket">
@@ -57,16 +57,16 @@
       <span class="tag">lens shape → ray bend</span>
     </div>
     <h2>Bend to a point</h2>
-    <p class="readout" id="readout" aria-live="polite">Convex glass. Drag the bow.</p>
-    <p class="note">A thicker middle bends outer rays harder, so they meet sooner. Thin the middle and the same refraction throws them apart — the focus goes virtual, behind the glass. The center ray does not turn. One WebGL context. A narrow screen, a coarse pointer, or <a href="?safe=1">?safe=1</a> skip the heat pass. <a href="?still=1">?still=1</a> holds the orbit.</p>
-    <p class="keys"><strong>Drag</strong> orbit · <strong>bow</strong> the rail · <strong>C</strong> convex · <strong>D</strong> concave</p>
+    <p class="readout" id="readout" aria-live="polite">Convex glass. A thicker middle bends outer rays toward a real focus.</p>
+    <p class="note">A convex lens is thicker in the middle. It bends outer rays more than the center ray, so they meet at a focal point. That meeting place is a real focus. You can catch it on the card. A concave lens is thinner in the middle. It bends the rays apart. They would meet only behind the glass. That place is a virtual focus. The center ray hits straight on, so it goes straight through.</p>
+    <p class="keys"><strong>Drag</strong> orbit · <strong>rail</strong> sets the curve · <strong>C</strong> convex · <strong>D</strong> concave</p>
   </aside>
   <div class="shape">
     <div class="modes" role="group" aria-label="Lens type">
       <button type="button" id="mode-convex" aria-pressed="true">Convex</button>
       <button type="button" id="mode-concave" aria-pressed="false">Concave</button>
     </div>
-    <div class="rail" id="shape-rail" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="47" aria-orientation="vertical" aria-label="Lens bow" aria-describedby="readout">
+    <div class="rail" id="shape-rail" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="47" aria-orientation="vertical" aria-label="Lens curve" aria-describedby="readout">
       <span class="rail-name">Lens shape</span>
       <span class="rail-groove">
         <span class="rail-fill"></span>

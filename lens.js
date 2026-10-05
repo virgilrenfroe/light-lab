@@ -33,8 +33,6 @@ function wantsStill() {
 const wall = document.documentElement.classList.contains('wall');
 const floatEmbed = document.documentElement.classList.contains('embed') && !wall;
 const stage = document.getElementById('stage');
-const pathPill = document.getElementById('path-pill');
-const motionPill = document.getElementById('motion-pill');
 const readout = document.getElementById('readout');
 const rail = document.getElementById('shape-rail');
 const modeConvex = document.getElementById('mode-convex');
@@ -496,19 +494,18 @@ const HeatLiftShader = {
   `,
 };
 
-function describe(fSigned, bow) {
+function describe(fSigned) {
   const mag = Math.abs(fSigned).toFixed(2);
-  const bowText = bow.toFixed(2);
   if (fSigned < 0) {
-    return `Concave · bow ${bowText} · virtual f ≈ ${mag}. Rays spread. The focus sits behind the glass.`;
+    return `Concave. The middle is thin. Rays spread apart. They would meet about ${mag} behind the glass. That place is a virtual focus.`;
   }
   if (Math.abs(SCREEN_X - fSigned) < 0.12) {
-    return `Convex · bow ${bowText} · f ≈ ${mag}. The focus lands on the card. The spot tightens.`;
+    return `Convex. The rays meet on the card. That meeting place is a real focal point, about ${mag} from the lens.`;
   }
   if (fSigned < SCREEN_X) {
-    return `Convex · bow ${bowText} · f ≈ ${mag}. Outer rays meet in front of the card, then spread.`;
+    return `Convex. A thicker middle bends the outer rays more. They meet in front of the card, then spread. Focal length about ${mag}.`;
   }
-  return `Convex · bow ${bowText} · f ≈ ${mag}. A weaker bow. Those rays would meet past the card.`;
+  return `Convex. A gentler curve. The rays would meet past the card. Focal length about ${mag}.`;
 }
 
 function updateRays(bow, isConvex) {
@@ -566,7 +563,7 @@ function updateRays(bow, isConvex) {
   const marginal = 0.22 * (1 - SCREEN_X / f);
   screenUniforms.uRadius.value = THREE.MathUtils.clamp(Math.abs(marginal) / 1.04, 0.02, 0.58);
 
-  const sentence = describe(f, bow);
+  const sentence = describe(f);
   readout.textContent = sentence;
   rail.style.setProperty('--t', bowT.toFixed(4));
   rail.setAttribute('aria-valuenow', String(Math.round(bowT * 100)));
@@ -601,7 +598,6 @@ function publishPath() {
   document.documentElement.dataset.lightPath = pathState.safe ? 'filaments' : 'heat';
   document.documentElement.dataset.composer = composer ? '1' : '0';
   document.documentElement.dataset.rendererCount = '1';
-  pathPill.textContent = pathState.safe ? 'Filaments' : 'Heat lift';
 }
 
 function ensureEnv() {
@@ -671,7 +667,6 @@ function applyBudget() {
 function syncMotion() {
   pathState.still = wantsStill();
   controls.autoRotate = !pathState.still;
-  motionPill.textContent = pathState.still ? 'Still' : 'Live';
   document.documentElement.classList.toggle('is-still', pathState.still);
   document.documentElement.dataset.motion = pathState.still ? 'still' : 'live';
 }

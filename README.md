@@ -51,6 +51,8 @@ HUD craft labels:
 
 ## How it runs
 
+Lesson pages speak to students and teachers. Renderer choices stay in this section.
+
 - One `WebGLRenderer` per lesson page. The hub is paper and type — no canvas. No page mounts two renderers.
 - **Aperture, desktop:** occlusion-map radial blur (god rays) through `EffectComposer` on that same renderer.
 - **Lenses, desktop:** a short heat-lift pass on the same renderer. Not a second context.
