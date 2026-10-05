@@ -785,7 +785,7 @@ html.embed.wall body { background: #07060c !important; }
     right: 12px;
     width: auto;
     bottom: calc(74px + env(safe-area-inset-bottom));
-    max-height: 42vh;
+    max-height: 46vh;
     overflow: auto;
   }
 
@@ -866,7 +866,27 @@ html.embed.wall body { background: #07060c !important; }
 
   .jumps a:hover { color: #8d2c12; }
 
-  .colophon { position: relative; left: auto; bottom: auto; }
+  .page-film .stamps {
+    top: calc(178px + env(safe-area-inset-top));
+  }
+
+  .mast-title { font-size: clamp(3.5rem, 16vw, 4.8rem); }
+
+  .deck { margin-top: 12px; }
+
+  .stack { margin-top: 16px; }
+
+  .folios { gap: 8px; }
+
+  .folio { padding: 10px 14px 11px; }
+
+  .folio-tag { margin-top: 4px; }
+
+  .folio-go { margin-top: 8px; }
+
+  .sheet { padding-bottom: 16px; }
+
+  .colophon { position: relative; left: auto; bottom: auto; margin-top: 14px; }
 }
 
 @media (min-width: 861px) and (max-height: 820px) {
