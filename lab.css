@@ -161,7 +161,10 @@ button:focus-visible,
   top: max(16px, env(safe-area-inset-top));
   right: max(16px, env(safe-area-inset-right));
   display: flex;
-  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px 12px;
+  max-width: min(520px, calc(100vw - 280px));
   pointer-events: auto;
 }
 
@@ -491,9 +494,14 @@ button:focus-visible,
   transition: transform 0.9s cubic-bezier(.16, .84, .28, 1);
 }
 
-.folio-b { margin-left: 18px; transition-delay: 0.1s; }
-.folio-c { margin-left: 36px; transition-delay: 0.18s; }
-.folio-d { margin-left: 54px; transition-delay: 0.26s; }
+.folio-b { margin-left: 12px; transition-delay: 0.08s; }
+.folio-c { margin-left: 24px; transition-delay: 0.14s; }
+.folio-d { margin-left: 36px; transition-delay: 0.2s; }
+.folio-e { margin-left: 48px; transition-delay: 0.26s; }
+
+.folio-name { white-space: nowrap; }
+
+.folio-e .folio-name { font-size: clamp(1.55rem, 2.15vw, 2.05rem); }
 
 html.is-locked .folio {
   transform: perspective(1100px) rotateX(-78deg);
@@ -566,9 +574,10 @@ html.is-locked .folio-go {
 }
 
 html.is-open .folio::before { animation: sear 0.85s ease forwards; }
-html.is-open .folio-b::before { animation-delay: 0.1s; }
-html.is-open .folio-c::before { animation-delay: 0.18s; }
-html.is-open .folio-d::before { animation-delay: 0.26s; }
+html.is-open .folio-b::before { animation-delay: 0.08s; }
+html.is-open .folio-c::before { animation-delay: 0.14s; }
+html.is-open .folio-d::before { animation-delay: 0.2s; }
+html.is-open .folio-e::before { animation-delay: 0.26s; }
 
 .folio:hover { transform: perspective(1100px) rotateX(0deg) translateY(-3px); }
 html.is-locked .folio:hover { transform: perspective(1100px) rotateX(-78deg); }
@@ -849,10 +858,11 @@ html.embed.wall body { background: #07060c !important; }
 
   .folio-b,
   .folio-c,
-  .folio-d { margin-left: 0; }
+  .folio-d,
+  .folio-e { margin-left: 0; }
 
   .jumps {
-    gap: 8px;
+    gap: 4px 8px;
     max-width: calc(100vw - 132px);
     justify-content: flex-end;
   }
@@ -861,28 +871,33 @@ html.embed.wall body { background: #07060c !important; }
     color: var(--ink-on-paper);
     border-bottom-color: var(--ember);
     font-size: 10px;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
   }
 
   .jumps a:hover { color: #8d2c12; }
 
-  .page-film .stamps {
+  .page-film .stamps,
+  .page-polar .stamps {
     top: calc(178px + env(safe-area-inset-top));
   }
 
-  .mast-title { font-size: clamp(3.5rem, 16vw, 4.8rem); }
+  .mast-title { font-size: clamp(3.15rem, 14vw, 4.2rem); }
 
-  .deck { margin-top: 12px; }
+  .deck { margin-top: 10px; font-size: 0.98rem; line-height: 1.35; }
 
-  .stack { margin-top: 16px; }
+  .stack { margin-top: 12px; }
 
-  .folios { gap: 8px; }
+  .folios { gap: 6px; }
 
-  .folio { padding: 10px 14px 11px; }
+  .folio { padding: 8px 12px 8px; }
 
-  .folio-tag { margin-top: 4px; }
+  .folio-name { font-size: 1.55rem; }
 
-  .folio-go { margin-top: 8px; }
+  .folio-e .folio-name { font-size: 1.42rem; }
+
+  .folio-tag { margin-top: 2px; font-size: 11px; }
+
+  .folio-go { margin-top: 5px; }
 
   .sheet { padding-bottom: 16px; }
 

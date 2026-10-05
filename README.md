@@ -4,17 +4,18 @@ Interactive light and optics curriculum for intro physics, media-arts, and instr
 
 Own repo. Not part of noctuary-corridor.
 
-Four lessons share one night stage. Module 01 cuts a beam. Module 02 bends what remains until the rays meet — or throws them apart. Module 03 splits the white beam by wavelength. Module 04 lets two reflections from a thin film interfere, so thickness and viewing angle pick the color.
+Five lessons share one night stage. Module 01 cuts a beam. Module 02 bends what remains until the rays meet — or throws them apart. Module 03 splits the white beam by wavelength. Module 04 lets two reflections from a thin film interfere, so thickness and viewing angle pick the color. Module 05 keeps one wiggle of the wave: turn the analyzer and brightness follows Malus's law.
 
 ## Lessons
 
 | | Path | What it teaches |
 | --- | --- | --- |
-| Hub | `/` and `/index.html` | All four modules. Strike the crease, or press Enter, to unfold the index. |
+| Hub | `/` and `/index.html` | All five modules. Strike the crease, or press Enter, to unfold the index. |
 | 01 Aperture | `/aperture.html` | Occlusion, volumetric shafts, caustic pool |
 | 02 Lenses | `/lens.html` | Refraction to a focus, lens shape changing the bend |
 | 03 Prism | `/prism.html` | Dispersion, a spectrum from wavelength-dependent bend |
 | 04 Thin film | `/film.html` | Interference, color bands from film thickness and viewing angle |
+| 05 Polarization | `/polar.html` | Malus's law, crossed filters, stress colors, glare at Brewster's angle |
 
 ## Live
 
@@ -26,6 +27,7 @@ Ship path is Railway. Service `web` on project light-lab serves this tree after 
   - Lenses: `/lens.html`
   - Prism: `/prism.html`
   - Thin film: `/film.html`
+  - Polarization: `/polar.html`
 
 GitHub Pages is not the ship path right now.
 
@@ -77,6 +79,27 @@ HUD craft labels:
 
 The thickness value has a little mass: it eases toward the rail instead of jumping, and a fast drag bows the membrane. `prefers-reduced-motion` and `?still=1` snap the thickness and hold the drainage ripple.
 
+## Module 05 — Polarization
+
+One bench. A lamp shines through two filter sheets onto a card. Light is a wave. The wiggle across its path can point any way. The first sheet, the polarizer, passes only one direction. Short ticks in the beam show that: many directions before the sheet, one direction after it. The second sheet is the analyzer. Turn it. Brightness on the card follows Malus's law, I = I0 cos² θ. θ is the angle between the filters. At 90° the filters are crossed and the beam goes dark. At 180° the sheets line up again and the beam returns.
+
+A clear plastic piece with a hole sits between the sheets. Stress around the hole twists the wiggle, and each wavelength twists a different amount. The color is a shader on the one renderer. With the polarizer vertical and the analyzer at angle θ, a local fast axis β and retardance δ give
+
+I = I0 [ cos² θ − sin(2β) sin(2(β − θ)) sin²(π δ / λ) ].
+
+Crossed filters (θ = 90°) leave only the stress colors. Aligned filters leave a bright field with faint fringes.
+
+A glass pane beside the bench carries a glare streak. Near Brewster's angle that reflection is polarized sideways, so a vertical analyzer blocks it and a horizontal one lets it through. The same sideways polarization is what polarized sunglasses cut off water. One rail drives the card, the plastic, and the glare together.
+
+The analyzer angle has a little mass: the ring eases toward the rail and can overshoot a fast twist. `prefers-reduced-motion` and `?still=1` snap the angle and hold the wiggle ticks.
+
+HUD craft labels:
+
+- **filter angle → brightness**
+- **crossed filters → dark**
+
+Arrows turn the analyzer. The rail runs from aligned (0°) through crossed (90°) to aligned again (180°).
+
 ## How it runs
 
 - One `WebGLRenderer` per lesson page. The hub is paper and type — no canvas. No page mounts two renderers.
@@ -84,7 +107,8 @@ The thickness value has a little mass: it eases toward the rail instead of jumpi
 - **Lenses, desktop:** a short heat-lift pass on the same renderer. Not a second context.
 - **Prism, desktop:** a short spectral-lift pass on the same renderer. Not a second context.
 - **Thin film, desktop:** a short wet-sheen pass on the same renderer. Not a second context. The film color is a shader on that one renderer: reflected intensity follows sin²(π δ / λ).
-- Narrow viewport (≤900px), a coarse pointer, or `?safe=1`: `EffectComposer` is never constructed. Aperture uses additive shaft quads. Lenses keep the ray filaments and skip the heat pass. Prism keeps the colored filaments and skips the spectral lift. The film keeps the interference shader, drops to four wavelength samples, and skips the sheen pass. Device pixel ratio caps at 1.5.
+- **Polarization, desktop:** a short lift pass on the same renderer. Not a second context. The plastic color is the Malus-and-stress shader above. The glare streak is drawn on that same renderer and follows sin² θ, with θ measured from vertical.
+- Narrow viewport (≤900px), a coarse pointer, or `?safe=1`: `EffectComposer` is never constructed. Aperture uses additive shaft quads. Lenses keep the ray filaments and skip the heat pass. Prism keeps the colored filaments and skips the spectral lift. The film keeps the interference shader, drops to four wavelength samples, and skips the sheen pass. Polarization keeps the filter shader, drops to four wavelength samples, skips the lift pass, and draws fewer wiggle ticks. Device pixel ratio caps at 1.5.
 - `prefers-reduced-motion: reduce` and `?still=1` hold auto-orbit, dust, shimmer, and the fold/burn motion. The hub opens already unfolded.
 
 ## Local
@@ -98,6 +122,7 @@ python3 -m http.server 8877
 - Lenses: http://127.0.0.1:8877/lens.html
 - Prism: http://127.0.0.1:8877/prism.html
 - Thin film: http://127.0.0.1:8877/film.html
+- Polarization: http://127.0.0.1:8877/polar.html
 - Mobile path on a desktop: add `?safe=1`
 - Held motion: add `?still=1`
 
