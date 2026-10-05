@@ -748,8 +748,9 @@ function syncPolar(forceReadout) {
   cardMat.color.setRGB(glow, glow * 0.84, glow * 0.58);
   spotMat.opacity = malus * 0.95;
   beamOutMat.opacity = 0.015 + malus * 0.28;
-  glareMat.opacity = 0.02 + glareAmt * 0.98;
-  glareHaloMat.opacity = glareAmt * 0.42;
+  const glareOn = glareAmt * glareAmt;
+  glareMat.opacity = glareOn;
+  glareHaloMat.opacity = THREE.MathUtils.smoothstep(glareAmt, 0.45, 0.92) * 0.5;
   if (liftPass) liftPass.uniforms.uGain.value = 0.22 + malus * 0.12 + glareAmt * 0.4;
   beamFrom.copy(lamp.position);
   beamTo.set(POL_X, AXIS_Y, 0.04);
