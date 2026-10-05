@@ -6,10 +6,8 @@ Own repo. Not part of noctuary-corridor.
 
 ## Live
 
-Placeholders until hosting is turned on:
-
-- **GitHub Pages:** https://virgilrenfroe.github.io/light-lab/ — enable Pages on `main`, root `/`
-- **Railway:** https://light-lab-production.up.railway.app/ — create the service (Dockerfile builder) to claim this URL
+- **GitHub Pages:** https://virgilrenfroe.github.io/light-lab/ — Pages is enabled on `main`, root `/`. The URL serves once the Pages build for the current commit finishes.
+- **Railway:** https://light-lab-production.up.railway.app/ — placeholder until a Railway service is created with the Dockerfile builder.
 
 Repo: https://github.com/virgilrenfroe/light-lab
 
