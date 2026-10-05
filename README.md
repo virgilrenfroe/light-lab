@@ -4,16 +4,17 @@ Interactive light and optics curriculum for intro physics, media-arts, and instr
 
 Own repo. Not part of noctuary-corridor.
 
-Three lessons share one night stage. Module 01 cuts a beam. Module 02 bends what remains until the rays meet — or throws them apart. Module 03 splits the white beam by wavelength.
+Four lessons share one night stage. Module 01 cuts a beam. Module 02 bends what remains until the rays meet — or throws them apart. Module 03 splits the white beam by wavelength. Module 04 lets two reflections from a thin film interfere, so thickness and viewing angle pick the color.
 
 ## Lessons
 
 | | Path | What it teaches |
 | --- | --- | --- |
-| Hub | `/` and `/index.html` | All three modules. Strike the crease, or press Enter, to unfold the index. |
+| Hub | `/` and `/index.html` | All four modules. Strike the crease, or press Enter, to unfold the index. |
 | 01 Aperture | `/aperture.html` | Occlusion, volumetric shafts, caustic pool |
 | 02 Lenses | `/lens.html` | Refraction to a focus, lens shape changing the bend |
 | 03 Prism | `/prism.html` | Dispersion, a spectrum from wavelength-dependent bend |
+| 04 Thin film | `/film.html` | Interference, color bands from film thickness and viewing angle |
 
 ## Live
 
@@ -24,6 +25,7 @@ Ship path is Railway. Service `web` on project light-lab serves this tree after 
   - Aperture: `/aperture.html`
   - Lenses: `/lens.html`
   - Prism: `/prism.html`
+  - Thin film: `/film.html`
 
 GitHub Pages is not the ship path right now.
 
@@ -62,13 +64,27 @@ HUD craft labels:
 
 `C` crown, `F` flint. Arrows turn the prism. The rail is incidence.
 
+## Module 04 — Thin film
+
+A soap film stretched in a brass hoop. Light reflects from the front surface and from the back surface. The back reflection travels farther. That extra length is the path difference, δ = 2 n t cos θ. One reflection flips phase. Near zero thickness the two waves cancel for every color, so the film looks dark. Gravity drains the liquid downward, so the top is thinner and goes dark first. A thicker film changes which wavelengths line up, and the hue shifts. A steeper view shortens the path inside the film. Soap is index 1.33. Oil is index 1.50, so the same physical thickness packs the bands closer.
+
+HUD craft labels:
+
+- **interference → color bands**
+- **thickness → hue**
+
+`S` soap, `O` oil. Arrows change thickness. The rail is thickness. Drag orbits the view, which is the angle in the path difference.
+
+The thickness value has a little mass: it eases toward the rail instead of jumping, and a fast drag bows the membrane. `prefers-reduced-motion` and `?still=1` snap the thickness and hold the drainage ripple.
+
 ## How it runs
 
 - One `WebGLRenderer` per lesson page. The hub is paper and type — no canvas. No page mounts two renderers.
 - **Aperture, desktop:** occlusion-map radial blur (god rays) through `EffectComposer` on that same renderer.
 - **Lenses, desktop:** a short heat-lift pass on the same renderer. Not a second context.
 - **Prism, desktop:** a short spectral-lift pass on the same renderer. Not a second context.
-- Narrow viewport (≤900px), a coarse pointer, or `?safe=1`: `EffectComposer` is never constructed. Aperture uses additive shaft quads. Lenses keep the ray filaments and skip the heat pass. Prism keeps the colored filaments and skips the spectral lift. Device pixel ratio caps at 1.5.
+- **Thin film, desktop:** a short wet-sheen pass on the same renderer. Not a second context. The film color is a shader on that one renderer: reflected intensity follows sin²(π δ / λ).
+- Narrow viewport (≤900px), a coarse pointer, or `?safe=1`: `EffectComposer` is never constructed. Aperture uses additive shaft quads. Lenses keep the ray filaments and skip the heat pass. Prism keeps the colored filaments and skips the spectral lift. The film keeps the interference shader, drops to four wavelength samples, and skips the sheen pass. Device pixel ratio caps at 1.5.
 - `prefers-reduced-motion: reduce` and `?still=1` hold auto-orbit, dust, shimmer, and the fold/burn motion. The hub opens already unfolded.
 
 ## Local
@@ -81,6 +97,7 @@ python3 -m http.server 8877
 - Aperture: http://127.0.0.1:8877/aperture.html
 - Lenses: http://127.0.0.1:8877/lens.html
 - Prism: http://127.0.0.1:8877/prism.html
+- Thin film: http://127.0.0.1:8877/film.html
 - Mobile path on a desktop: add `?safe=1`
 - Held motion: add `?still=1`
 

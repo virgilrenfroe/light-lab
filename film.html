@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="description" content="Light Lab module 04 — Thin film. Light reflects from the front and the back of a soap film or oil film. The two reflections interfere, so thickness and viewing angle pick the color." />
+<meta name="theme-color" content="#07060c" />
+<title>Light Lab · Thin film</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./lab.css" />
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  }
+}
+</script>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var root = document.documentElement;
+  if (q.has('still') || matchMedia('(prefers-reduced-motion: reduce)').matches) root.classList.add('is-still');
+  if (q.has('embed')) root.classList.add('embed');
+  if (q.has('wall') || q.get('opaque') === '1') root.classList.add('wall');
+})();
+</script>
+</head>
+<body class="page-lesson page-film">
+<div id="stage" aria-label="Thin film stage"></div>
+<div class="stage-fade" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="spine">
+  <span class="spine-mark">Light Lab</span>
+  <span class="spine-idx">04</span>
+</div>
+<header class="lesson-head">
+  <p class="kicker">Module 04 · two reflections</p>
+  <h1>Thin<br>film</h1>
+</header>
+<nav class="jumps" aria-label="Lessons">
+  <a href="index.html" data-lab>Index</a>
+  <a href="aperture.html" data-lab>Aperture</a>
+  <a href="lens.html" data-lab>Lenses</a>
+  <a href="prism.html" data-lab>Prism</a>
+</nav>
+<div class="stamps">
+  <p class="stamp">Near zero looks dark</p>
+  <p class="stamp">Angle shifts the hue</p>
+</div>
+<div class="dock">
+  <aside class="ticket">
+    <span class="burn" aria-hidden="true"></span>
+    <span class="dogear" aria-hidden="true"></span>
+    <div class="tags">
+      <span class="tag">interference → color bands</span>
+      <span class="tag">thickness → hue</span>
+    </div>
+    <h2>Two reflections meet</h2>
+    <p class="readout" id="readout" aria-live="polite">A soap film. Watch which colors grow stronger, and which cancel.</p>
+    <p class="note">Light reflects from the front of the film. It also crosses the film, reflects from the back, and comes out. The back path is longer. That extra length is the path difference. If the waves line up, that color gets stronger. That is constructive interference. If the waves land out of step, that color cancels. That is destructive interference. Thickness sets the path difference, so thickness picks the hue. A steeper view shortens the path inside the film. The bands shift. The front reflection flips. The back one does not. Near zero thickness, every color cancels. The film looks dark. Gravity pulls the liquid down, so the top is thinner and goes dark first.</p>
+    <p class="keys"><strong>Drag</strong> orbit · <strong>rail</strong> thickness · <strong>S</strong> soap · <strong>O</strong> oil</p>
+  </aside>
+  <div class="shape">
+    <div class="modes" role="group" aria-label="Film">
+      <button type="button" id="mode-soap" aria-pressed="true">Soap</button>
+      <button type="button" id="mode-oil" aria-pressed="false">Oil</button>
+    </div>
+    <div class="rail" id="thick-rail" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="62" aria-orientation="vertical" aria-label="Film thickness" aria-describedby="readout">
+      <span class="rail-name">Thickness</span>
+      <span class="rail-groove">
+        <span class="rail-fill"></span>
+        <span class="rail-knob"></span>
+      </span>
+    </div>
+  </div>
+</div>
+<div class="error" id="err"></div>
+<script src="./frame.js"></script>
+<script type="module" src="./film.js"></script>
+</body>
+</html>
