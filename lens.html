@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="description" content="Light Lab module 02 — Lenses. A converging or diverging lens refracts rays toward a focal point or away from a virtual one. Lens shape changes the bend." />
+<meta name="theme-color" content="#07060c" />
+<title>Light Lab · Lenses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./lab.css" />
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  }
+}
+</script>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var root = document.documentElement;
+  if (q.has('still') || matchMedia('(prefers-reduced-motion: reduce)').matches) root.classList.add('is-still');
+  if (q.has('embed')) root.classList.add('embed');
+  if (q.has('wall') || q.get('opaque') === '1') root.classList.add('wall');
+})();
+</script>
+</head>
+<body class="page-lesson page-lens">
+<div id="stage" aria-label="Lenses stage"></div>
+<div class="stage-fade" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="spine">
+  <span class="spine-mark">Light Lab</span>
+  <span class="spine-idx">02</span>
+</div>
+<header class="lesson-head">
+  <p class="kicker">Module 02 · rays meet</p>
+  <h1>Lenses</h1>
+</header>
+<nav class="jumps" aria-label="Lessons">
+  <a href="index.html" data-lab>Index</a>
+  <a href="aperture.html" data-lab>Aperture</a>
+</nav>
+<div class="stamps">
+  <p class="stamp" id="path-pill">One context</p>
+  <p class="stamp" id="motion-pill">Live</p>
+</div>
+<div class="dock">
+  <aside class="ticket">
+    <span class="burn" aria-hidden="true"></span>
+    <span class="dogear" aria-hidden="true"></span>
+    <div class="tags">
+      <span class="tag">refraction → focus</span>
+      <span class="tag">lens shape → ray bend</span>
+    </div>
+    <h2>Bend to a point</h2>
+    <p class="readout" id="readout" aria-live="polite">Convex glass. Drag the bow.</p>
+    <p class="note">A thicker middle bends outer rays harder, so they meet sooner. Thin the middle and the same refraction throws them apart — the focus goes virtual, behind the glass. The center ray does not turn. One WebGL context. A narrow screen, a coarse pointer, or <a href="?safe=1">?safe=1</a> skip the heat pass. <a href="?still=1">?still=1</a> holds the orbit.</p>
+    <p class="keys"><strong>Drag</strong> orbit · <strong>bow</strong> the rail · <strong>C</strong> convex · <strong>D</strong> concave</p>
+  </aside>
+  <div class="shape">
+    <div class="modes" role="group" aria-label="Lens type">
+      <button type="button" id="mode-convex" aria-pressed="true">Convex</button>
+      <button type="button" id="mode-concave" aria-pressed="false">Concave</button>
+    </div>
+    <div class="rail" id="shape-rail" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="47" aria-orientation="vertical" aria-label="Lens bow" aria-describedby="readout">
+      <span class="rail-name">Lens shape</span>
+      <span class="rail-groove">
+        <span class="rail-fill"></span>
+        <span class="rail-knob"></span>
+      </span>
+    </div>
+  </div>
+</div>
+<div class="error" id="err"></div>
+<script src="./frame.js"></script>
+<script type="module" src="./lens.js"></script>
+</body>
+</html>

@@ -4,12 +4,30 @@ Interactive light and optics curriculum for intro physics, media-arts, and instr
 
 Own repo. Not part of noctuary-corridor.
 
+Two lessons share one night stage. Module 01 cuts a beam. Module 02 bends what remains until the rays meet — or throws them apart.
+
+## Lessons
+
+| | Path | What it teaches |
+| --- | --- | --- |
+| Hub | `/` and `/index.html` | Both modules. Strike the crease, or press Enter, to unfold the index. |
+| 01 Aperture | `/aperture.html` | Occlusion, volumetric shafts, caustic pool |
+| 02 Lenses | `/lens.html` | Refraction to a focus, lens shape changing the bend |
+
 ## Live
 
-- **GitHub Pages:** https://virgilrenfroe.github.io/light-lab/ — Pages is enabled on `main`, root `/`. The URL serves once the Pages build for the current commit finishes.
-- **Railway:** https://light-lab-production.up.railway.app/ — placeholder until a Railway service is created with the Dockerfile builder.
+Ship path is Railway. Service `web` on project light-lab serves this tree after `main` updates:
+
+- **Railway:** https://web-production-e48f9.up.railway.app/
+  - Hub: `/`
+  - Aperture: `/aperture.html`
+  - Lenses: `/lens.html`
+
+GitHub Pages is not the ship path right now.
 
 Repo: https://github.com/virgilrenfroe/light-lab
+
+The aperture exhibit used to be the site root. It now lives at `/aperture.html`. The root is the curriculum index.
 
 ## Module 01 — Aperture
 
@@ -20,14 +38,24 @@ HUD craft labels:
 - **occlusion → volumetric shafts**
 - **refraction → caustic pool**
 
-Dust in the beam = scatter.
+## Module 02 — Lenses
+
+An optical bench. Parallel rays hit a glass lens and bend. Drag the bow: a thicker middle meets sooner. Flip to concave and the same refraction spreads the rays; the focus goes virtual, behind the glass. The center ray does not turn. A card down the bench shows the spot tighten when the focus lands on it.
+
+HUD craft labels:
+
+- **refraction → focus**
+- **lens shape → ray bend**
+
+`C` convex, `D` concave. Arrows nudge the bow. The rail is a slider.
 
 ## How it runs
 
-- One shared `WebGLRenderer` for the page. No second context.
-- Desktop: occlusion-map radial blur (god rays) through `EffectComposer` and a god-ray `ShaderPass` on that same renderer.
-- Narrow viewport (≤900px), a coarse pointer, or `?safe=1`: `EffectComposer` and the god-ray `ShaderPass` are never constructed. Shafts are additive quads. Device pixel ratio caps at 1.5.
-- `prefers-reduced-motion: reduce` and `?still=1` hold auto-orbit, dust drift, caustic shimmer, and the lens.
+- One `WebGLRenderer` per lesson page. The hub is paper and type — no canvas. No page mounts two renderers.
+- **Aperture, desktop:** occlusion-map radial blur (god rays) through `EffectComposer` on that same renderer.
+- **Lenses, desktop:** a short heat-lift pass on the same renderer. Not a second context.
+- Narrow viewport (≤900px), a coarse pointer, or `?safe=1`: `EffectComposer` is never constructed. Aperture uses additive shaft quads. Lenses keep the ray filaments and skip the heat pass. Device pixel ratio caps at 1.5.
+- `prefers-reduced-motion: reduce` and `?still=1` hold auto-orbit, dust, shimmer, and the fold/burn motion. The hub opens already unfolded.
 
 ## Local
 
@@ -35,12 +63,13 @@ Dust in the beam = scatter.
 python3 -m http.server 8877
 ```
 
-- Exhibit: http://127.0.0.1:8877/
-- Mobile path on a desktop: http://127.0.0.1:8877/?safe=1
-- Held motion: http://127.0.0.1:8877/?still=1
-- Both: http://127.0.0.1:8877/?safe=1&still=1
+- Hub: http://127.0.0.1:8877/
+- Aperture: http://127.0.0.1:8877/aperture.html
+- Lenses: http://127.0.0.1:8877/lens.html
+- Mobile path on a desktop: add `?safe=1`
+- Held motion: add `?still=1`
 
-`?embed=1` hides the HUD for an iframe slide. Add `?wall=1` when the frame should stay opaque.
+`?embed=1` hides the lesson frame for an iframe slide. Add `?wall=1` when the frame should stay opaque.
 
 ## Stack
 

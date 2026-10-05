@@ -30,8 +30,8 @@ function wantsStill() {
   return reduceMql.matches || params.has('still');
 }
 
-const wall = document.body.classList.contains('wall');
-const floatEmbed = document.body.classList.contains('embed') && !wall;
+const wall = document.documentElement.classList.contains('wall');
+const floatEmbed = document.documentElement.classList.contains('embed') && !wall;
 const stage = document.getElementById('stage');
 const pathPill = document.getElementById('path-pill');
 const motionPill = document.getElementById('motion-pill');
@@ -545,7 +545,7 @@ function syncMotion() {
   pathState.still = wantsStill();
   controls.autoRotate = !pathState.still;
   motionPill.textContent = pathState.still ? 'Still' : 'Live';
-  document.body.classList.toggle('reduce', pathState.still);
+  document.documentElement.classList.toggle('is-still', pathState.still);
   document.documentElement.dataset.motion = pathState.still ? 'still' : 'live';
 }
 

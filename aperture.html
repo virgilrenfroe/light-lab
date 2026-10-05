@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="description" content="Light Lab module 01 — Aperture. Mullions occlude a beam into volumetric shafts. A lens bends what gets through into a caustic pool." />
+<meta name="theme-color" content="#07060c" />
+<title>Light Lab · Aperture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./lab.css" />
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  }
+}
+</script>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var root = document.documentElement;
+  if (q.has('still') || matchMedia('(prefers-reduced-motion: reduce)').matches) root.classList.add('is-still');
+  if (q.has('embed')) root.classList.add('embed');
+  if (q.has('wall') || q.get('opaque') === '1') root.classList.add('wall');
+})();
+</script>
+</head>
+<body class="page-lesson page-aperture">
+<div id="stage" aria-label="Aperture stage"></div>
+<div class="stage-fade" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="spine">
+  <span class="spine-mark">Light Lab</span>
+  <span class="spine-idx">01</span>
+</div>
+<header class="lesson-head">
+  <p class="kicker">Module 01 · the beam is cut</p>
+  <h1>Aperture</h1>
+</header>
+<nav class="jumps" aria-label="Lessons">
+  <a href="index.html" data-lab>Index</a>
+  <a href="lens.html" data-lab>Lenses</a>
+</nav>
+<div class="stamps">
+  <p class="stamp" id="path-pill">One context</p>
+  <p class="stamp" id="motion-pill">Live</p>
+</div>
+<div class="dock">
+  <aside class="ticket">
+    <span class="burn" aria-hidden="true"></span>
+    <span class="dogear" aria-hidden="true"></span>
+    <div class="tags">
+      <span class="tag">occlusion → volumetric shafts</span>
+      <span class="tag">refraction → caustic pool</span>
+    </div>
+    <h2>Cut the beam</h2>
+    <p class="note" id="craft-note">Mullions occlude the beam into shafts. The lens bends what gets through into the pool. Dust in the beam is scatter. Desktop draws the shafts with an occlusion-map radial blur on one WebGL context. A narrow screen, a coarse pointer, or <a href="?safe=1">?safe=1</a> skip that pass and use additive shaft quads. <a href="?still=1">?still=1</a> and reduced motion hold the scene.</p>
+    <p class="keys"><strong>Drag</strong> orbit · <strong>scroll</strong> dolly</p>
+  </aside>
+</div>
+<div class="error" id="err"></div>
+<script src="./frame.js"></script>
+<script type="module" src="./aperture.js"></script>
+</body>
+</html>
