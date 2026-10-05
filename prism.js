@@ -33,8 +33,6 @@ function wantsStill() {
 const wall = document.documentElement.classList.contains('wall');
 const floatEmbed = document.documentElement.classList.contains('embed') && !wall;
 const stage = document.getElementById('stage');
-const pathPill = document.getElementById('path-pill');
-const motionPill = document.getElementById('motion-pill');
 const readout = document.getElementById('readout');
 const rail = document.getElementById('turn-rail');
 const modeCrown = document.getElementById('mode-crown');
@@ -610,20 +608,21 @@ function paintCard(stripes) {
 function describe(glass, incidenceDeg, spreadDeg, nearMin, tirViolet, tirRed, anyOut) {
   const n = nOf(glass, 550).toFixed(2);
   const inc = Math.round(incidenceDeg);
+  const who = `${glass.name} glass. Index ${n}. Incidence ${inc}°.`;
   if (!anyOut) {
-    return `${glass.name} · n ${n} · incidence ${inc}°. The beam reflects inside the glass. Turn back toward the face.`;
+    return `${who} The whole beam reflects inside the glass. This is total internal reflection. Turn the prism back.`;
   }
   if (tirViolet && !tirRed) {
-    return `${glass.name} · n ${n} · incidence ${inc}°. Violet reflects inside. Red still leaves — a shorter wavelength reaches the critical angle first.`;
+    return `${who} Violet is past the critical angle, so it reflects inside. Red still leaves.`;
   }
   const more = Math.max(1, Math.round(spreadDeg));
   if (nearMin) {
-    return `${glass.name} · n ${n} · incidence ${inc}°. Near the smallest bend. Violet still turns ${more}° more than red.`;
+    return `${who} This is near the smallest bend. Violet still bends ${more}° more than red.`;
   }
   if (glass === GLASS.crown) {
-    return `${glass.name} · n ${n} · incidence ${inc}°. A milder glass. Violet bends ${more}° more than red, and the spectrum stays tight.`;
+    return `${who} Crown glass spreads the colors a little. Violet bends ${more}° more than red.`;
   }
-  return `${glass.name} · n ${n} · incidence ${inc}°. Violet bends ${more}° more than red. The fan is open.`;
+  return `${who} Flint glass spreads the colors wide. Violet bends ${more}° more than red.`;
 }
 
 function commit() {
@@ -765,7 +764,6 @@ function publishPath() {
   document.documentElement.dataset.lightPath = pathState.safe ? 'filaments' : 'spectral';
   document.documentElement.dataset.composer = composer ? '1' : '0';
   document.documentElement.dataset.rendererCount = '1';
-  pathPill.textContent = pathState.safe ? 'Filaments' : 'Spectral lift';
 }
 
 function ensureEnv() {
@@ -838,7 +836,6 @@ function applyBudget() {
 function syncMotion() {
   pathState.still = wantsStill();
   controls.autoRotate = !pathState.still;
-  motionPill.textContent = pathState.still ? 'Still' : 'Live';
   document.documentElement.classList.toggle('is-still', pathState.still);
   document.documentElement.dataset.motion = pathState.still ? 'still' : 'live';
 }
