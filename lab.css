@@ -415,7 +415,8 @@ button:focus-visible,
 
 .sheet {
   position: relative;
-  min-height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
   padding: max(28px, env(safe-area-inset-top)) 28px 32px 78px;
 }
 
@@ -490,7 +491,8 @@ button:focus-visible,
   transition: transform 0.9s cubic-bezier(.16, .84, .28, 1);
 }
 
-.folio-b { margin-left: 28px; transition-delay: 0.12s; }
+.folio-b { margin-left: 22px; transition-delay: 0.12s; }
+.folio-c { margin-left: 44px; transition-delay: 0.22s; }
 
 html.is-locked .folio {
   transform: perspective(1100px) rotateX(-78deg);
@@ -564,6 +566,7 @@ html.is-locked .folio-go {
 
 html.is-open .folio::before { animation: sear 0.85s ease forwards; }
 html.is-open .folio-b::before { animation-delay: 0.12s; }
+html.is-open .folio-c::before { animation-delay: 0.22s; }
 
 .folio:hover { transform: perspective(1100px) rotateX(0deg) translateY(-3px); }
 html.is-locked .folio:hover { transform: perspective(1100px) rotateX(-78deg); }
@@ -768,7 +771,7 @@ html.embed.wall body { background: #07060c !important; }
   }
 
   .stamps {
-    top: calc(108px + env(safe-area-inset-top));
+    top: calc(132px + env(safe-area-inset-top));
     left: 14px;
     right: auto;
     align-items: flex-start;
@@ -842,9 +845,23 @@ html.embed.wall body { background: #07060c !important; }
     margin-top: 28px;
   }
 
-  .folio-b { margin-left: 0; }
+  .folio-b,
+  .folio-c { margin-left: 0; }
 
   .colophon { position: relative; left: auto; bottom: auto; }
+}
+
+@media (min-width: 861px) and (max-height: 820px) {
+  .stack {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: min(440px, 46vw);
+    margin: 28px 0 0 auto;
+  }
+
+  .mast { padding-top: 2vh; }
+  .colophon { position: relative; left: auto; bottom: auto; margin-top: 22px; }
 }
 
 @media (max-width: 860px) and (max-height: 700px) {
