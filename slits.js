@@ -80,9 +80,26 @@ controls.minDistance = 1.85;
 controls.maxDistance = 5.6;
 controls.minPolarAngle = 0.62;
 controls.maxPolarAngle = 1.38;
-controls.minAzimuthAngle = -0.78;
-controls.maxAzimuthAngle = 0.9;
+controls.minAzimuthAngle = -0.9;
+controls.maxAzimuthAngle = 1.05;
 controls.autoRotateSpeed = 0.16;
+
+let framedNarrow = null;
+function frameCamera() {
+  const narrow = innerWidth <= 900;
+  if (framedNarrow === narrow) return;
+  framedNarrow = narrow;
+  if (narrow) {
+    camera.position.set(0.55, 1.28, 2.48);
+    controls.target.set(0.34, 0.46, 0);
+    screen.rotation.y = -0.46;
+  } else {
+    camera.position.set(0.42, 1.72, 2.85);
+    controls.target.set(0.28, 1.04, 0);
+    screen.rotation.y = -0.82;
+  }
+  screenFrame.rotation.copy(screen.rotation);
+}
 
 const pathState = { safe: wantsSafe(), still: wantsStill() };
 document.documentElement.dataset.lightPath = pathState.safe ? 'flat' : 'lift';
@@ -647,8 +664,10 @@ function syncSlits(forceReadout) {
   slitMatB.opacity = open;
   haloMatB.opacity = open * 0.45;
   haloMatA.opacity = 0.42;
-  shutter.position.x = THREE.MathUtils.lerp(half + 0.34, half, THREE.MathUtils.smoothstep(cover.value, 0, 1));
-  shutter.position.y = 0;
+  const slide = THREE.MathUtils.smoothstep(cover.value, 0.02, 0.9);
+  shutter.position.x = half;
+  shutter.position.y = THREE.MathUtils.lerp(0.86, 0, slide);
+  shutter.visible = cover.value > 0.03;
 
   card.updateWorldMatrix(true, true);
   slitA.getWorldPosition(slitAWorld);
@@ -715,6 +734,7 @@ function syncMotion() {
 
 function resize() {
   pathState.safe = wantsSafe();
+  frameCamera();
   applyBudget();
   syncMotion();
 }
@@ -805,6 +825,7 @@ addEventListener('keydown', (event) => {
   syncSlits(true);
 });
 
+frameCamera();
 applyBudget();
 syncMotion();
 

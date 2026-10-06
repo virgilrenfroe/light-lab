@@ -966,9 +966,18 @@ html.embed.wall body { background: #07060c !important; }
 
   .page-slits .modes { flex: 1 0 100%; }
 
-  .page-slits .rail {
+  .page-slits .rails {
+    display: flex;
+    flex: 1 1 100%;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .page-slits .rails .rail {
     flex: 1 1 0;
     min-width: 0;
+    height: auto;
+    min-height: 0;
   }
 
   .page-slits .rail-name {
@@ -1021,19 +1030,27 @@ html.embed.wall body { background: #07060c !important; }
 
 @media (min-width: 861px) {
   .page-slits .shape {
-    width: 118px;
-    gap: 6px;
+    width: 148px;
+    gap: 8px;
   }
 
-  .page-slits .rail {
-    height: min(13vh, 104px);
-    min-height: 76px;
-    padding: 6px 4px;
+  .page-slits .rails {
+    display: flex;
+    gap: 4px;
+    height: min(34vh, 240px);
+    min-height: 168px;
+  }
+
+  .page-slits .rails .rail {
+    flex: 1 1 0;
+    height: 100%;
+    min-height: 0;
+    padding: 6px 3px;
   }
 
   .page-slits .rail-name {
     font-size: 9px;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.05em;
   }
 }
 
