@@ -4,13 +4,13 @@ Interactive light and optics curriculum for intro physics, media-arts, and instr
 
 Own repo. Not part of noctuary-corridor.
 
-Ten lessons share one night stage. Module 01 cuts a beam. Module 02 bends what remains until the rays meet — or throws them apart. Module 03 splits the white beam by wavelength. Module 04 lets two reflections from a thin film interfere, so thickness and viewing angle pick the color. Module 05 keeps one wiggle of the wave: turn the analyzer and brightness follows Malus's law. Module 06 sends the beam through two slits. The waves overlap, and the screen shows bright and dark bars. Module 07 bounces the beam off a sheet you can flex. Angle in equals angle out, measured from the normal. Module 08 opens onto the sky. Short wavelengths scatter out of the beam, and a low sun turns red. Module 09 mixes color two ways on one card. Red, green, and blue lamps add to white. Cyan, magenta, and yellow pigments subtract toward black. Module 10 shines that light on a surface. The wavelengths the surface absorbs are missing. The wavelengths it reflects are the color you see.
+Eleven lessons share one night stage. Module 01 cuts a beam. Module 02 bends what remains until the rays meet — or throws them apart. Module 03 splits the white beam by wavelength. Module 04 lets two reflections from a thin film interfere, so thickness and viewing angle pick the color. Module 05 keeps one wiggle of the wave: turn the analyzer and brightness follows Malus's law. Module 06 sends the beam through two slits. The waves overlap, and the screen shows bright and dark bars. Module 07 bounces the beam off a sheet you can flex. Angle in equals angle out, measured from the normal. Module 08 opens onto the sky. Short wavelengths scatter out of the beam, and a low sun turns red. Module 09 mixes color two ways on one card. Red, green, and blue lamps add to white. Cyan, magenta, and yellow pigments subtract toward black. Module 10 shines that light on a surface. The wavelengths the surface absorbs are missing. The wavelengths it reflects are the color you see. Module 11 casts that light past an object onto a screen. A wide lamp leaves a dark core, the umbra, and a grey fringe, the penumbra. A point-like lamp leaves a sharp edge.
 
 ## Lessons
 
 | | Path | What it teaches |
 | --- | --- | --- |
-| Hub | `/` and `/index.html` | All ten modules. Open the lessons, or press Enter, to unfold the index. |
+| Hub | `/` and `/index.html` | All eleven modules. Open the lessons, or press Enter, to unfold the index. |
 | 01 Aperture | `/aperture.html` | Occlusion, volumetric shafts, caustic pool |
 | 02 Lenses | `/lens.html` | Refraction to a focus, lens shape changing the bend |
 | 03 Prism | `/prism.html` | Dispersion, a spectrum from wavelength-dependent bend |
@@ -21,6 +21,7 @@ Ten lessons share one night stage. Module 01 cuts a beam. Module 02 bends what r
 | 08 Scattering | `/sky.html` | Rayleigh scattering (about 1/λ⁴), a longer path reddening the sun, Mie scattering turning haze and clouds white |
 | 09 Color | `/color.html` | Additive RGB lamps (overlap to white) and subtractive CMY pigments (overlap to near-black) |
 | 10 Absorption | `/absorb.html` | A surface absorbs some wavelengths and reflects the rest. That returning mix is the color you see. |
+| 11 Shadows | `/shadow.html` | Umbra and penumbra. A wider lamp softens the edge. A point-like lamp leaves a sharp shadow. |
 
 Each lesson ticket includes a folded section, **Where you'll see this**. It stays shut so the bench stays clear. Open it for two or three jobs that use the idea on that page.
 
@@ -40,6 +41,7 @@ Ship path is Railway. Service `web` on project light-lab serves this tree after 
   - Scattering: `/sky.html`
   - Color: `/color.html`
   - Absorption: `/absorb.html`
+  - Shadows: `/shadow.html`
 
 GitHub Pages is not the ship path right now.
 
@@ -203,6 +205,25 @@ HUD craft labels:
 
 `G` leaf, `W` white, `K` black, `R` red, `Y` yellow, `B` blue. `O` returns the lamp to white. Arrows move the swatch or the filter when focus is not on a button.
 
+## Module 11 — Shadows
+
+One night stage. A round lamp shines past a dark disc onto a screen. The lamp has a size. From a point on the screen, the disc may cover the whole lamp, part of it, or none of it.
+
+The dark core is the umbra. No light from the lamp reaches it, because the disc covers the whole lamp. The grey fringe is the penumbra. Part of the lamp is blocked there, and part is not. Outside the fringe the whole lamp is visible, so the screen is in full light.
+
+The picture is a circular source and a circular occluder, both facing the screen. For a screen point a distance ρ from the shadow center, the occluder maps back onto the source plane as a disk of radius R L / (L − d), centered a distance ρ d / (L − d) from the lamp's center. L is the lamp-to-screen distance, d is the lamp-to-object distance, and R is the object radius. The light at that point is the fraction of the lamp disk that this occluder disk does not cover. Where the fraction is zero, the point is in the umbra. Where it is between zero and one, the point is in the penumbra.
+
+A point-like lamp makes those two boundaries meet, so the edge is sharp. A wide lamp pushes them apart, so the fringe grows. If the lamp is wide enough that the disc never covers it, the umbra closes before the screen and the whole shadow is penumbra. Moving the disc closer to the screen leaves the fringe less room to spread. Moving the screen farther away lets the fringe grow. Two lamps add. The darkest patch is where both are blocked.
+
+Warm rods mark the umbra boundary and the penumbra boundary while one lamp is on. The labels sit on the screen. The values ease toward the rails. `prefers-reduced-motion` and `?still=1` snap them and hold the dust in the beam.
+
+HUD craft labels:
+
+- **wide lamp → soft edge**
+- **umbra → no light**
+
+`P` point lamp, `W` wide lamp, `O` one lamp, `T` two lamps. Arrows nudge the lamp rail when focus is not on another rail. Each rail takes the arrows while it is focused.
+
 ## How it runs
 
 - One `WebGLRenderer` per lesson page. The hub is paper and type — no canvas. No page mounts two renderers.
@@ -216,7 +237,8 @@ HUD craft labels:
 - **Scattering, desktop:** a short sky-lift pass on the same renderer. Not a second context. The sky is one shader: Rayleigh color from the 1/λ⁴ transmittance, a longer path reddening the sun, and a wavelength-flat Mie veil when haze is up. The lift pass encodes the frame once. It does not run a second tone map. Narrow, coarse, and `?safe=1` keep the sky, the glass, and fewer cloud puffs, and skip the lift pass.
 - **Color, desktop:** a short color-lift pass on the same renderer. Not a second context. The card is one shader: additive RGB pools in Light, and Beer–Lambert CMY absorption in Pigment. The lift pass encodes the frame once. It does not run a second tone map. Narrow, coarse, and `?safe=1` keep the card, the lamps, and fewer dust motes, and skip the lift pass.
 - **Absorption, desktop:** a short lift pass on the same renderer. Not a second context. The board and the band row are shaders on that renderer. The lift pass encodes the frame once. It does not run a second tone map. Narrow, coarse, and `?safe=1` keep the board, the lamp, and the bands, draw fewer dust motes, and skip the lift pass. Device pixel ratio stays at or below 1.5.
-- Narrow viewport (≤900px), a coarse pointer, or `?safe=1`: `EffectComposer` is never constructed. Aperture uses additive shaft quads. Lenses keep the ray filaments and skip the heat pass. Prism keeps the colored filaments and skips the spectral lift. The film keeps the interference shader, drops to four wavelength samples, and skips the sheen pass. Polarization keeps the filter shader, drops to four wavelength samples, skips the lift pass, and draws fewer wiggle ticks. The double slit keeps the fringe shader and the ripple sheet, and skips the lift pass. The mirror keeps the sheet shader and fewer rays, and skips the glint pass. The sky keeps the scattering shader, drops to three cloud puffs and fewer motes, and skips the lift pass. The color card keeps the mixing shader, draws fewer dust motes, and skips the lift pass. The absorption board keeps the reflectance shader and the band row, draws fewer dust motes, and skips the lift pass. Device pixel ratio caps at 1.5.
+- **Shadows, desktop:** a short lift pass on the same renderer. Not a second context. The screen is one shader: the fraction of a round lamp a round disc leaves uncovered. The lift pass encodes the frame once and only lifts the lamp. It does not run a second tone map. Narrow, coarse, and `?safe=1` keep the lamp, the disc, the screen, and the boundary rods, draw fewer dust motes, and skip the lift pass. Device pixel ratio stays at or below 1.5.
+- Narrow viewport (≤900px), a coarse pointer, or `?safe=1`: `EffectComposer` is never constructed. Aperture uses additive shaft quads. Lenses keep the ray filaments and skip the heat pass. Prism keeps the colored filaments and skips the spectral lift. The film keeps the interference shader, drops to four wavelength samples, and skips the sheen pass. Polarization keeps the filter shader, drops to four wavelength samples, skips the lift pass, and draws fewer wiggle ticks. The double slit keeps the fringe shader and the ripple sheet, and skips the lift pass. The mirror keeps the sheet shader and fewer rays, and skips the glint pass. The sky keeps the scattering shader, drops to three cloud puffs and fewer motes, and skips the lift pass. The color card keeps the mixing shader, draws fewer dust motes, and skips the lift pass. The absorption board keeps the reflectance shader and the band row, draws fewer dust motes, and skips the lift pass. The shadow stage keeps the screen shader, the boundary rods, and fewer dust motes, and skips the lift pass. Device pixel ratio caps at 1.5.
 - `prefers-reduced-motion: reduce` and `?still=1` hold auto-orbit, dust, shimmer, and the fold/burn motion. The hub opens already unfolded.
 
 ## Local
@@ -236,6 +258,7 @@ python3 -m http.server 8877
 - Scattering: http://127.0.0.1:8877/sky.html
 - Color: http://127.0.0.1:8877/color.html
 - Absorption: http://127.0.0.1:8877/absorb.html
+- Shadows: http://127.0.0.1:8877/shadow.html
 - Mobile path on a desktop: add `?safe=1`
 - Held motion: add `?still=1`
 
