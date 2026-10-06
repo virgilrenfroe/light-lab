@@ -45,6 +45,7 @@
   <a href="aperture.html" data-lab>Aperture</a>
   <a href="prism.html" data-lab>Prism</a>
   <a href="film.html" data-lab>Film</a>
+  <a href="polar.html" data-lab>Polar</a>
 </nav>
 <div class="stamps">
   <p class="stamp" id="path-pill">One context</p>
@@ -54,14 +55,24 @@
   <aside class="ticket">
     <span class="burn" aria-hidden="true"></span>
     <span class="dogear" aria-hidden="true"></span>
-    <div class="tags">
-      <span class="tag">refraction → focus</span>
-      <span class="tag">lens shape → ray bend</span>
+    <div class="ticket-body">
+      <div class="tags">
+        <span class="tag">refraction → focus</span>
+        <span class="tag">lens shape → ray bend</span>
+      </div>
+      <h2>Bend to a point</h2>
+      <p class="readout" id="readout" aria-live="polite">Convex glass. Drag the bow.</p>
+      <p class="note">A thicker middle bends outer rays harder, so they meet sooner. Thin the middle and the same refraction throws them apart — the focus goes virtual, behind the glass. The center ray does not turn. One WebGL context. A narrow screen, a coarse pointer, or <a href="?safe=1">?safe=1</a> skip the heat pass. <a href="?still=1">?still=1</a> holds the orbit.</p>
     </div>
-    <h2>Bend to a point</h2>
-    <p class="readout" id="readout" aria-live="polite">Convex glass. Drag the bow.</p>
-    <p class="note">A thicker middle bends outer rays harder, so they meet sooner. Thin the middle and the same refraction throws them apart — the focus goes virtual, behind the glass. The center ray does not turn. One WebGL context. A narrow screen, a coarse pointer, or <a href="?safe=1">?safe=1</a> skip the heat pass. <a href="?still=1">?still=1</a> holds the orbit.</p>
     <p class="keys"><strong>Drag</strong> orbit · <strong>bow</strong> the rail · <strong>C</strong> convex · <strong>D</strong> concave</p>
+    <details class="world">
+      <summary>Where you'll see this</summary>
+      <div class="world-copy">
+        <p>An optometrist writes a glasses prescription in diopters. One diopter means a focal length of one meter. A convex lens bends rays together and corrects a farsighted eye. A concave lens spreads them and corrects a nearsighted eye. Contact lenses do the same job in a thinner piece.</p>
+        <p>A cinematographer picks a lens by its focal length. A short focal length brings the rays together sooner and takes in a wide view. A long one meets them farther away and takes in a tight view.</p>
+        <p>An astronomer uses a large lens or a curved mirror in a telescope to bring starlight to one focus. A lab biologist uses a microscope. Its objective is a strong convex lens that bends light from a tiny specimen toward a focus.</p>
+      </div>
+    </details>
   </aside>
   <div class="shape">
     <div class="modes" role="group" aria-label="Lens type">

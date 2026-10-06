@@ -45,6 +45,7 @@
   <a href="lens.html" data-lab>Lenses</a>
   <a href="prism.html" data-lab>Prism</a>
   <a href="film.html" data-lab>Film</a>
+  <a href="polar.html" data-lab>Polar</a>
 </nav>
 <div class="stamps">
   <p class="stamp" id="path-pill">One context</p>
@@ -54,13 +55,23 @@
   <aside class="ticket">
     <span class="burn" aria-hidden="true"></span>
     <span class="dogear" aria-hidden="true"></span>
-    <div class="tags">
-      <span class="tag">occlusion → volumetric shafts</span>
-      <span class="tag">refraction → caustic pool</span>
+    <div class="ticket-body">
+      <div class="tags">
+        <span class="tag">occlusion → volumetric shafts</span>
+        <span class="tag">refraction → caustic pool</span>
+      </div>
+      <h2>Cut the beam</h2>
+      <p class="note" id="craft-note">Mullions occlude the beam into shafts. The lens bends what gets through into the pool. Dust in the beam is scatter. Desktop draws the shafts with an occlusion-map radial blur on one WebGL context. A narrow screen, a coarse pointer, or <a href="?safe=1">?safe=1</a> skip that pass and use additive shaft quads. <a href="?still=1">?still=1</a> and reduced motion hold the scene.</p>
     </div>
-    <h2>Cut the beam</h2>
-    <p class="note" id="craft-note">Mullions occlude the beam into shafts. The lens bends what gets through into the pool. Dust in the beam is scatter. Desktop draws the shafts with an occlusion-map radial blur on one WebGL context. A narrow screen, a coarse pointer, or <a href="?safe=1">?safe=1</a> skip that pass and use additive shaft quads. <a href="?still=1">?still=1</a> and reduced motion hold the scene.</p>
     <p class="keys"><strong>Drag</strong> orbit · <strong>scroll</strong> dolly</p>
+    <details class="world">
+      <summary>Where you'll see this</summary>
+      <div class="world-copy">
+        <p>A cinematographer sets the f-stop. That number is the size of the hole that cuts the beam. A smaller hole lets less light through, which sets the exposure, and it keeps more of the scene sharp.</p>
+        <p>A gaffer cuts a lamp with a flag or a window. Dust and haze scatter the light that gets through, so the beam shows up as shafts.</p>
+        <p>A photographer shoots sunlight through a glass of water or a pool. The curved surface bends the beam that gets through, and the light piles up in a bright pool.</p>
+      </div>
+    </details>
   </aside>
 </div>
 <div class="error" id="err"></div>
