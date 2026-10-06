@@ -4,13 +4,13 @@ Interactive light and optics curriculum for intro physics, media-arts, and instr
 
 Own repo. Not part of noctuary-corridor.
 
-Nine lessons share one night stage. Module 01 cuts a beam. Module 02 bends what remains until the rays meet — or throws them apart. Module 03 splits the white beam by wavelength. Module 04 lets two reflections from a thin film interfere, so thickness and viewing angle pick the color. Module 05 keeps one wiggle of the wave: turn the analyzer and brightness follows Malus's law. Module 06 sends the beam through two slits. The waves overlap, and the screen shows bright and dark bars. Module 07 bounces the beam off a sheet you can flex. Angle in equals angle out, measured from the normal. Module 08 opens onto the sky. Short wavelengths scatter out of the beam, and a low sun turns red. Module 09 mixes color two ways on one card. Red, green, and blue lamps add to white. Cyan, magenta, and yellow pigments subtract toward black.
+Ten lessons share one night stage. Module 01 cuts a beam. Module 02 bends what remains until the rays meet — or throws them apart. Module 03 splits the white beam by wavelength. Module 04 lets two reflections from a thin film interfere, so thickness and viewing angle pick the color. Module 05 keeps one wiggle of the wave: turn the analyzer and brightness follows Malus's law. Module 06 sends the beam through two slits. The waves overlap, and the screen shows bright and dark bars. Module 07 bounces the beam off a sheet you can flex. Angle in equals angle out, measured from the normal. Module 08 opens onto the sky. Short wavelengths scatter out of the beam, and a low sun turns red. Module 09 mixes color two ways on one card. Red, green, and blue lamps add to white. Cyan, magenta, and yellow pigments subtract toward black. Module 10 shines that light on a surface. The wavelengths the surface absorbs are missing. The wavelengths it reflects are the color you see.
 
 ## Lessons
 
 | | Path | What it teaches |
 | --- | --- | --- |
-| Hub | `/` and `/index.html` | All nine modules. Open the lessons, or press Enter, to unfold the index. |
+| Hub | `/` and `/index.html` | All ten modules. Open the lessons, or press Enter, to unfold the index. |
 | 01 Aperture | `/aperture.html` | Occlusion, volumetric shafts, caustic pool |
 | 02 Lenses | `/lens.html` | Refraction to a focus, lens shape changing the bend |
 | 03 Prism | `/prism.html` | Dispersion, a spectrum from wavelength-dependent bend |
@@ -20,6 +20,7 @@ Nine lessons share one night stage. Module 01 cuts a beam. Module 02 bends what 
 | 07 Mirrors | `/mirror.html` | Law of reflection, virtual and real images, concave focus, convex wide view |
 | 08 Scattering | `/sky.html` | Rayleigh scattering (about 1/λ⁴), a longer path reddening the sun, Mie scattering turning haze and clouds white |
 | 09 Color | `/color.html` | Additive RGB lamps (overlap to white) and subtractive CMY pigments (overlap to near-black) |
+| 10 Absorption | `/absorb.html` | A surface absorbs some wavelengths and reflects the rest. That returning mix is the color you see. |
 
 Each lesson ticket includes a folded section, **Where you'll see this**. It stays shut so the bench stays clear. Open it for two or three jobs that use the idea on that page.
 
@@ -38,6 +39,7 @@ Ship path is Railway. Service `web` on project light-lab serves this tree after 
   - Mirrors: `/mirror.html`
   - Scattering: `/sky.html`
   - Color: `/color.html`
+  - Absorption: `/absorb.html`
 
 GitHub Pages is not the ship path right now.
 
@@ -184,6 +186,23 @@ HUD craft labels:
 
 `L` light, `P` pigment. Arrows nudge the first rail (red, or cyan) when focus is not on another rail. Each rail takes the arrows while it is focused.
 
+## Module 10 — Absorption
+
+One night table. A single lamp shines on a board. White light holds every wavelength in the beam. The board absorbs some of them and reflects the others. The mix that reflects is the color of the board. A leaf absorbs most red and most blue and reflects green, so the leaf looks green. White paper reflects almost every wavelength, so it stays white under the white lamp. A black surface absorbs almost every wavelength, so almost nothing comes back.
+
+Change the lamp and the color can change, because an object can only send back light that arrived. A red filter leaves mostly red in the beam. The leaf absorbs that red, so the leaf goes dark. Red paint under the same red filter still looks red, because the paint reflects red. Yellow paint absorbs blue, so a blue filter leaves it dark. White paper takes the color of whatever the lamp is sending.
+
+The brass row on the table is the split. Twelve bands run from violet to deep red. A tall band is light that came back. Above a short band, the dark gap is light the surface absorbed. An empty slot means that wavelength was not in the beam. The curves are a teaching model, not a measured spectrophotometer. The leaf is high in the green and low in the red and the blue, in the shape of chlorophyll's absorption. White paper is nearly flat and high. Black is nearly flat and low. Red paint rises in the long wavelengths. Yellow paint stays high through the green and the red and falls in the blue. Blue paint rises in the short wavelengths. Each returning color is that reflectance times the lamp, summed with a simple wavelength-to-color curve, then divided by the same sum for a perfect white reflector under equal-energy white light. That keeps white paper white under the white lamp, and it does not adapt a red lamp back to white.
+
+The board color and the bands ease toward the swatch. `prefers-reduced-motion` and `?still=1` snap them and hold the dust in the beam.
+
+HUD craft labels:
+
+- **absorb → missing color**
+- **reflect → color you see**
+
+`G` leaf, `W` white, `K` black, `R` red, `Y` yellow, `B` blue. `O` returns the lamp to white. Arrows move the swatch or the filter when focus is not on a button.
+
 ## How it runs
 
 - One `WebGLRenderer` per lesson page. The hub is paper and type — no canvas. No page mounts two renderers.
@@ -196,7 +215,8 @@ HUD craft labels:
 - **Mirrors, desktop:** a short glint-lift pass on the same renderer. Not a second context. The sheet is one shader: a sheer silver face, a brass rim, and a highlight that follows the bend. Narrow, coarse, and `?safe=1` keep that sheet and the rays, and skip the lift pass.
 - **Scattering, desktop:** a short sky-lift pass on the same renderer. Not a second context. The sky is one shader: Rayleigh color from the 1/λ⁴ transmittance, a longer path reddening the sun, and a wavelength-flat Mie veil when haze is up. The lift pass encodes the frame once. It does not run a second tone map. Narrow, coarse, and `?safe=1` keep the sky, the glass, and fewer cloud puffs, and skip the lift pass.
 - **Color, desktop:** a short color-lift pass on the same renderer. Not a second context. The card is one shader: additive RGB pools in Light, and Beer–Lambert CMY absorption in Pigment. The lift pass encodes the frame once. It does not run a second tone map. Narrow, coarse, and `?safe=1` keep the card, the lamps, and fewer dust motes, and skip the lift pass.
-- Narrow viewport (≤900px), a coarse pointer, or `?safe=1`: `EffectComposer` is never constructed. Aperture uses additive shaft quads. Lenses keep the ray filaments and skip the heat pass. Prism keeps the colored filaments and skips the spectral lift. The film keeps the interference shader, drops to four wavelength samples, and skips the sheen pass. Polarization keeps the filter shader, drops to four wavelength samples, skips the lift pass, and draws fewer wiggle ticks. The double slit keeps the fringe shader and the ripple sheet, and skips the lift pass. The mirror keeps the sheet shader and fewer rays, and skips the glint pass. The sky keeps the scattering shader, drops to three cloud puffs and fewer motes, and skips the lift pass. The color card keeps the mixing shader, draws fewer dust motes, and skips the lift pass. Device pixel ratio caps at 1.5.
+- **Absorption, desktop:** a short lift pass on the same renderer. Not a second context. The board and the band row are shaders on that renderer. The lift pass encodes the frame once. It does not run a second tone map. Narrow, coarse, and `?safe=1` keep the board, the lamp, and the bands, draw fewer dust motes, and skip the lift pass. Device pixel ratio stays at or below 1.5.
+- Narrow viewport (≤900px), a coarse pointer, or `?safe=1`: `EffectComposer` is never constructed. Aperture uses additive shaft quads. Lenses keep the ray filaments and skip the heat pass. Prism keeps the colored filaments and skips the spectral lift. The film keeps the interference shader, drops to four wavelength samples, and skips the sheen pass. Polarization keeps the filter shader, drops to four wavelength samples, skips the lift pass, and draws fewer wiggle ticks. The double slit keeps the fringe shader and the ripple sheet, and skips the lift pass. The mirror keeps the sheet shader and fewer rays, and skips the glint pass. The sky keeps the scattering shader, drops to three cloud puffs and fewer motes, and skips the lift pass. The color card keeps the mixing shader, draws fewer dust motes, and skips the lift pass. The absorption board keeps the reflectance shader and the band row, draws fewer dust motes, and skips the lift pass. Device pixel ratio caps at 1.5.
 - `prefers-reduced-motion: reduce` and `?still=1` hold auto-orbit, dust, shimmer, and the fold/burn motion. The hub opens already unfolded.
 
 ## Local
@@ -215,6 +235,7 @@ python3 -m http.server 8877
 - Mirrors: http://127.0.0.1:8877/mirror.html
 - Scattering: http://127.0.0.1:8877/sky.html
 - Color: http://127.0.0.1:8877/color.html
+- Absorption: http://127.0.0.1:8877/absorb.html
 - Mobile path on a desktop: add `?safe=1`
 - Held motion: add `?still=1`
 
