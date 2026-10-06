@@ -4,19 +4,20 @@ Interactive light and optics curriculum for intro physics, media-arts, and instr
 
 Own repo. Not part of noctuary-corridor.
 
-Six lessons share one night stage. Module 01 cuts a beam. Module 02 bends what remains until the rays meet — or throws them apart. Module 03 splits the white beam by wavelength. Module 04 lets two reflections from a thin film interfere, so thickness and viewing angle pick the color. Module 05 keeps one wiggle of the wave: turn the analyzer and brightness follows Malus's law. Module 06 sends the beam through two slits. The waves overlap, and the screen shows bright and dark bars.
+Seven lessons share one night stage. Module 01 cuts a beam. Module 02 bends what remains until the rays meet — or throws them apart. Module 03 splits the white beam by wavelength. Module 04 lets two reflections from a thin film interfere, so thickness and viewing angle pick the color. Module 05 keeps one wiggle of the wave: turn the analyzer and brightness follows Malus's law. Module 06 sends the beam through two slits. The waves overlap, and the screen shows bright and dark bars. Module 07 bounces the beam off a sheet you can flex. Angle in equals angle out, measured from the normal.
 
 ## Lessons
 
 | | Path | What it teaches |
 | --- | --- | --- |
-| Hub | `/` and `/index.html` | All six modules. Strike the crease, or press Enter, to unfold the index. |
+| Hub | `/` and `/index.html` | All seven modules. Strike the crease, or press Enter, to unfold the index. |
 | 01 Aperture | `/aperture.html` | Occlusion, volumetric shafts, caustic pool |
 | 02 Lenses | `/lens.html` | Refraction to a focus, lens shape changing the bend |
 | 03 Prism | `/prism.html` | Dispersion, a spectrum from wavelength-dependent bend |
 | 04 Thin film | `/film.html` | Interference, color bands from film thickness and viewing angle |
 | 05 Polarization | `/polar.html` | Malus's law, crossed filters, stress colors, glare at Brewster's angle |
 | 06 Double slit | `/slits.html` | Interference and diffraction. Fringe spacing y ≈ λ L / d. Cover one slit and the bars become one broad glow. |
+| 07 Mirrors | `/mirror.html` | Law of reflection, virtual and real images, concave focus, convex wide view |
 
 Each lesson ticket includes a folded section, **Where you'll see this**. It stays shut so the bench stays clear. Open it for two or three jobs that use the idea on that page.
 
@@ -32,6 +33,7 @@ Ship path is Railway. Service `web` on project light-lab serves this tree after 
   - Thin film: `/film.html`
   - Polarization: `/polar.html`
   - Double slit: `/slits.html`
+  - Mirrors: `/mirror.html`
 
 GitHub Pages is not the ship path right now.
 
@@ -125,6 +127,27 @@ HUD craft labels:
 
 `B` both slits, `O` one slit. Arrows nudge the spacing rail when focus is not on another rail. Each rail takes the arrows while it is focused.
 
+## Module 07 — Mirrors
+
+One night room. A brass lamp stands in front of a silver sheet, and a high window sends a bundle of parallel rays at the same sheet. Flex the sheet from convex through flat to concave. Move the lamp closer or farther.
+
+The normal is the line straight out from the surface. At the middle of the sheet, two arcs mark the incoming angle and the outgoing angle. They match. Both are measured from the normal.
+
+A flat sheet places a virtual image behind the glass, upright and the same size, as far back as the lamp is in front. The ghost is the same lamp, drawn as a pale edged twin, standing in the cooler room you see through the silver.
+
+A concave sheet is a parabola, so a bundle of parallel rays meets at one focus. The lamp's own rays follow the law of reflection on that curve. Outside the focal point they meet at a real image in front of the glass, and the ghost turns upside down. Inside the focal point they spread, and the ghost is virtual, upright, and larger, behind the glass. Near the focal point the image runs too far to place.
+
+A convex sheet spreads both the lamp rays and the parallel bundle. The ghost stays virtual, upright, and smaller. A smaller image is why a convex mirror takes in a wider view, and why a passenger-side mirror warns that objects are closer than they appear.
+
+The curve and the lamp distance each have a little mass: the sheet eases toward the rail and can overshoot a fast drag. `prefers-reduced-motion` and `?still=1` snap both values and hold the glint.
+
+HUD craft labels:
+
+- **angle in → angle out**
+- **curve → focus**
+
+`F` flat, `C` concave, `V` convex. Arrows nudge the curve rail when focus is not on the lamp rail. Each rail takes the arrows while it is focused.
+
 ## How it runs
 
 - One `WebGLRenderer` per lesson page. The hub is paper and type — no canvas. No page mounts two renderers.
@@ -134,7 +157,8 @@ HUD craft labels:
 - **Thin film, desktop:** a short wet-sheen pass on the same renderer. Not a second context. The film color is a shader on that one renderer: reflected intensity follows sin²(π δ / λ).
 - **Polarization, desktop:** a short lift pass on the same renderer. Not a second context. The plastic color is the Malus-and-stress shader above. The glare streak is drawn on that same renderer and follows sin² θ, with θ measured from vertical.
 - **Double slit, desktop:** a short fringe-lift pass on the same renderer. Not a second context. The screen bars are a shader on that renderer: intensity is the single-slit envelope times cos²(π δ / λ), with δ the path difference between the two slits. Covering one slit drops the cos² term.
-- Narrow viewport (≤900px), a coarse pointer, or `?safe=1`: `EffectComposer` is never constructed. Aperture uses additive shaft quads. Lenses keep the ray filaments and skip the heat pass. Prism keeps the colored filaments and skips the spectral lift. The film keeps the interference shader, drops to four wavelength samples, and skips the sheen pass. Polarization keeps the filter shader, drops to four wavelength samples, skips the lift pass, and draws fewer wiggle ticks. The double slit keeps the fringe shader and the ripple sheet, and skips the lift pass. Device pixel ratio caps at 1.5.
+- **Mirrors, desktop:** a short glint-lift pass on the same renderer. Not a second context. The sheet is one shader: a sheer silver face, a brass rim, and a highlight that follows the bend. Narrow, coarse, and `?safe=1` keep that sheet and the rays, and skip the lift pass.
+- Narrow viewport (≤900px), a coarse pointer, or `?safe=1`: `EffectComposer` is never constructed. Aperture uses additive shaft quads. Lenses keep the ray filaments and skip the heat pass. Prism keeps the colored filaments and skips the spectral lift. The film keeps the interference shader, drops to four wavelength samples, and skips the sheen pass. Polarization keeps the filter shader, drops to four wavelength samples, skips the lift pass, and draws fewer wiggle ticks. The double slit keeps the fringe shader and the ripple sheet, and skips the lift pass. The mirror keeps the sheet shader and fewer rays, and skips the glint pass. Device pixel ratio caps at 1.5.
 - `prefers-reduced-motion: reduce` and `?still=1` hold auto-orbit, dust, shimmer, and the fold/burn motion. The hub opens already unfolded.
 
 ## Local
@@ -150,6 +174,7 @@ python3 -m http.server 8877
 - Thin film: http://127.0.0.1:8877/film.html
 - Polarization: http://127.0.0.1:8877/polar.html
 - Double slit: http://127.0.0.1:8877/slits.html
+- Mirrors: http://127.0.0.1:8877/mirror.html
 - Mobile path on a desktop: add `?safe=1`
 - Held motion: add `?still=1`
 
