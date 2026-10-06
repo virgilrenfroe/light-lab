@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="description" content="Light Lab module 10 — Absorption. White light hits a surface. The surface absorbs some wavelengths and reflects the others. The mix that comes back is the color you see. A leaf looks green because it absorbs most red and blue and reflects green." />
+<meta name="theme-color" content="#07060c" />
+<title>Light Lab · Absorption</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./lab.css" />
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  }
+}
+</script>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var root = document.documentElement;
+  if (q.has('still') || matchMedia('(prefers-reduced-motion: reduce)').matches) root.classList.add('is-still');
+  if (q.has('embed')) root.classList.add('embed');
+  if (q.has('wall') || q.get('opaque') === '1') root.classList.add('wall');
+})();
+</script>
+</head>
+<body class="page-lesson page-absorb">
+<div id="stage" aria-label="Absorption stage"></div>
+<div class="stage-fade" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="spine">
+  <span class="spine-mark">Light Lab</span>
+  <span class="spine-idx">10</span>
+</div>
+<header class="lesson-head">
+  <p class="kicker">Module 10 · the light that returns</p>
+  <h1>Absorption</h1>
+</header>
+<nav class="jumps" aria-label="Lessons">
+  <a href="index.html" data-lab>Index</a>
+  <a href="aperture.html" data-lab>Aperture</a>
+  <a href="lens.html" data-lab>Lenses</a>
+  <a href="prism.html" data-lab>Prism</a>
+  <a href="film.html" data-lab>Film</a>
+  <a href="polar.html" data-lab>Polar</a>
+  <a href="slits.html" data-lab>Slits</a>
+  <a href="mirror.html" data-lab>Mirror</a>
+  <a href="sky.html" data-lab>Sky</a>
+  <a href="color.html" data-lab>Color</a>
+</nav>
+<div class="stamps">
+  <p class="stamp">Green comes back</p>
+  <p class="stamp">Black stays dark</p>
+</div>
+<div class="dock">
+  <aside class="ticket">
+    <span class="burn" aria-hidden="true"></span>
+    <span class="dogear" aria-hidden="true"></span>
+    <div class="ticket-body">
+      <div class="tags">
+        <span class="tag">absorb → missing color</span>
+        <span class="tag">reflect → color you see</span>
+      </div>
+      <h2>The color that comes back</h2>
+      <p class="readout" id="readout" aria-live="polite">White light on a leaf. The leaf absorbs most of the red and the blue. Green comes back, so the leaf looks green.</p>
+      <p class="note">White light holds every color. When it hits a surface, the surface absorbs some wavelengths and reflects the others. The mix that reflects is the color you see. A leaf looks green because it absorbs most red and blue and reflects green. A white surface reflects almost every wavelength, so it stays white under a white lamp. A black surface absorbs almost every wavelength, so almost nothing comes back.</p>
+      <p class="note">The lamp can change that color. A red filter leaves mostly red in the beam. Shine it on a leaf and the leaf goes dark, because the leaf absorbs red. The color is not stuck to the object. It is the light the surface sends back. On the table, a tall band is a color that came back. A short band under a dark gap is a color the surface absorbed. An empty slot means that color was never in the beam.</p>
+    </div>
+    <p class="keys"><strong>Drag</strong> orbit · <strong>arrows</strong> next swatch or filter · <strong>G</strong> leaf · <strong>W</strong> white · <strong>K</strong> black · <strong>R</strong> red · <strong>Y</strong> yellow · <strong>B</strong> blue · <strong>O</strong> white lamp</p>
+    <details class="world">
+      <summary>Where you'll see this</summary>
+      <div class="world-copy">
+        <p>A textile designer picks a dye for the bands it absorbs. A green dye takes in much of the red and the blue and sends green back. In daylight, which holds every color, the cloth looks green. Under a lamp that sends little green, that dye has less green to return, so the cloth can look duller. The dye did not change. The light did.</p>
+        <p>A cinematographer tests wardrobe under the lights that will be on the set. A gel in front of a lamp keeps some wavelengths and removes the others. A blue coat reflects blue. Under a red gel, blue was never in the beam, so the coat goes dark. The same coat under a white lamp looks blue again. The color of the cloth depends on the light, not only on the dye.</p>
+        <p>A plant biologist, or a horticulturist, explains why a leaf is green. Chlorophyll absorbs red and blue light strongly and uses that energy for photosynthesis. Much of the green is reflected, and some passes through the leaf. That reflected green is the color you see. Many grow lights put extra red and blue in the beam, because those are bands a leaf takes in.</p>
+      </div>
+    </details>
+  </aside>
+  <div class="shape">
+    <div class="pick-set">
+      <p class="set-name">Surface</p>
+      <div class="swatches" role="group" aria-label="Surface">
+        <button type="button" data-surface="0" aria-pressed="true"><span class="chip chip-leaf" aria-hidden="true"></span>Leaf</button>
+        <button type="button" data-surface="1" aria-pressed="false"><span class="chip chip-white" aria-hidden="true"></span>White</button>
+        <button type="button" data-surface="2" aria-pressed="false"><span class="chip chip-black" aria-hidden="true"></span>Black</button>
+        <button type="button" data-surface="3" aria-pressed="false"><span class="chip chip-red" aria-hidden="true"></span>Red</button>
+        <button type="button" data-surface="4" aria-pressed="false"><span class="chip chip-yellow" aria-hidden="true"></span>Yellow</button>
+        <button type="button" data-surface="5" aria-pressed="false"><span class="chip chip-blue" aria-hidden="true"></span>Blue</button>
+      </div>
+    </div>
+    <div class="pick-set">
+      <p class="set-name">Lamp</p>
+      <div class="modes" role="group" aria-label="Lamp">
+        <button type="button" data-lamp="0" aria-pressed="true"><span class="chip chip-white" aria-hidden="true"></span>White</button>
+        <button type="button" data-lamp="1" aria-pressed="false"><span class="chip chip-red" aria-hidden="true"></span>Red</button>
+        <button type="button" data-lamp="2" aria-pressed="false"><span class="chip chip-green" aria-hidden="true"></span>Green</button>
+        <button type="button" data-lamp="3" aria-pressed="false"><span class="chip chip-blue" aria-hidden="true"></span>Blue</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="error" id="err"></div>
+<script src="./frame.js"></script>
+<script type="module" src="./absorb.js"></script>
+</body>
+</html>
