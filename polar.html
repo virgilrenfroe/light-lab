@@ -55,14 +55,24 @@
   <aside class="ticket">
     <span class="burn" aria-hidden="true"></span>
     <span class="dogear" aria-hidden="true"></span>
-    <div class="tags">
-      <span class="tag">filter angle → brightness</span>
-      <span class="tag">crossed filters → dark</span>
+    <div class="ticket-body">
+      <div class="tags">
+        <span class="tag">filter angle → brightness</span>
+        <span class="tag">crossed filters → dark</span>
+      </div>
+      <h2>One wiggle gets through</h2>
+      <p class="readout" id="readout" aria-live="polite">Turn the analyzer. Watch the beam, the plastic, and the glare on the glass.</p>
+      <p class="note">Light is a wave. It wiggles across its path, and that wiggle can point any way. A polarizer passes only one direction. Light that gets through is polarized. The second filter is the analyzer. Turn it. Brightness follows Malus's law: I = I0 cos² θ. Theta is the angle between the filters. At 90° the filters are crossed, and the beam goes dark. A clear plastic piece sits between the filters. Stress in the plastic twists the wiggle. Each color twists a different amount, so crossed filters show color. The streak on the glass is glare. Near Brewster's angle, that reflection is polarized sideways. A vertical filter blocks it. The same thing happens on water. Polarized sunglasses work this way.</p>
     </div>
-    <h2>One wiggle gets through</h2>
-    <p class="readout" id="readout" aria-live="polite">Turn the analyzer. Watch the beam, the plastic, and the glare on the glass.</p>
-    <p class="note">Light is a wave. It wiggles across its path, and that wiggle can point any way. A polarizer passes only one direction. Light that gets through is polarized. The second filter is the analyzer. Turn it. Brightness follows Malus's law: I = I0 cos² θ. Theta is the angle between the filters. At 90° the filters are crossed, and the beam goes dark. A clear plastic piece sits between the filters. Stress in the plastic twists the wiggle. Each color twists a different amount, so crossed filters show color. The streak on the glass is glare. Near Brewster's angle, that reflection is polarized sideways. A vertical filter blocks it. The same thing happens on water. Polarized sunglasses work this way.</p>
     <p class="keys"><strong>Drag</strong> orbit · <strong>rail</strong> angle · <strong>arrows</strong> turn the filter</p>
+    <details class="world">
+      <summary>Where you'll see this</summary>
+      <div class="world-copy">
+        <p>An angler wears polarized sunglasses to see past the glare on the water. That glare is polarized sideways. The vertical filter in the glasses blocks it, the way the analyzer here blocks the streak on the glass. A pilot can wear them to cut glare off a wet runway. On some cockpit screens the picture dims, because those screens use polarizers too.</p>
+        <p>A display engineer builds a liquid-crystal screen from two polarizers with liquid crystal between them. The crystal can rotate the wiggle. When the light lines up with the second filter, that pixel is bright. When it does not, the pixel stays dark.</p>
+        <p>A mechanical engineer sets a clear plastic model between crossed polarizers. Stress in the plastic shows up as color, the way the piece on this bench does. The colors mark where the part is under the most stress.</p>
+      </div>
+    </details>
   </aside>
   <div class="shape">
     <div class="rail" id="angle-rail" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="180" aria-valuenow="28" aria-orientation="vertical" aria-label="Analyzer angle" aria-describedby="readout" style="--t: 0.156">

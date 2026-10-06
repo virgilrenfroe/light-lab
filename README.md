@@ -17,6 +17,8 @@ Five lessons share one night stage. Module 01 cuts a beam. Module 02 bends what 
 | 04 Thin film | `/film.html` | Interference, color bands from film thickness and viewing angle |
 | 05 Polarization | `/polar.html` | Malus's law, crossed filters, stress colors, glare at Brewster's angle |
 
+Each lesson ticket includes a folded section, **Where you'll see this**. It stays shut so the bench stays clear. Open it for two or three jobs that use the idea on that page.
+
 ## Live
 
 Ship path is Railway. Service `web` on project light-lab serves this tree after `main` updates:
