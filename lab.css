@@ -601,9 +601,29 @@ button:focus-visible,
 .folio-f .folio-name,
 .folio-h .folio-name { font-size: clamp(1.35rem, 1.7vw, 1.7rem); }
 
+html.is-locked body.page-hub {
+  background:
+    radial-gradient(ellipse 58% 52% at 74% 58%, rgba(255, 186, 120, 0.28), transparent 70%),
+    radial-gradient(ellipse 46% 40% at 8% 12%, rgba(239, 228, 210, 0.14), transparent 72%),
+    radial-gradient(ellipse 50% 44% at 100% 100%, rgba(255, 77, 26, 0.26), transparent 64%),
+    #141218;
+}
+
+html.is-locked .deck {
+  color: rgba(239, 228, 210, 0.9);
+}
+
+html.is-locked .eyebrow,
+html.is-locked .colophon {
+  color: rgba(239, 228, 210, 0.78);
+}
+
 html.is-locked .folio {
-  transform: perspective(1100px) rotateX(-78deg);
+  transform: perspective(1100px) rotateX(-34deg);
   transition: none;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.75) inset,
+    0 10px 22px rgba(0, 0, 0, 0.28);
 }
 
 .folio-top {
@@ -684,7 +704,7 @@ html.is-open .folio-h::before { animation-delay: 0.3s; }
 html.is-open .folio-i::before { animation-delay: 0.34s; }
 
 .folio:hover { transform: perspective(1100px) rotateX(0deg) translateY(-3px); }
-html.is-locked .folio:hover { transform: perspective(1100px) rotateX(-78deg); }
+html.is-locked .folio:hover { transform: perspective(1100px) rotateX(-28deg); }
 
 .seal {
   --strike: 0;
@@ -696,11 +716,14 @@ html.is-locked .folio:hover { transform: perspective(1100px) rotateX(-78deg); }
   overflow: hidden;
   width: auto;
   text-align: left;
-  background: var(--char);
-  color: var(--paper);
+  background: linear-gradient(180deg, #f6efe4 0%, #e7d3b8 100%);
+  color: var(--ink-on-paper);
   border: none;
-  padding: 14px 16px 15px;
-  cursor: ew-resize;
+  padding: 16px 18px 15px;
+  cursor: pointer;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    0 18px 36px rgba(0, 0, 0, 0.38);
   clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
 }
 
@@ -708,38 +731,32 @@ html.is-locked .folio:hover { transform: perspective(1100px) rotateX(-78deg); }
   position: absolute;
   inset: 0 auto 0 0;
   width: calc(var(--strike) * 100%);
-  background: linear-gradient(90deg, #4a160e 0%, var(--ember) 72%, #ffe1b0 100%);
-  mix-blend-mode: screen;
+  background: linear-gradient(90deg, rgba(255, 77, 26, 0.15) 0%, var(--ember) 70%, #ffe1b0 100%);
+  mix-blend-mode: multiply;
   pointer-events: none;
 }
 
-.seal-kicker,
 .seal-title,
 .seal-hint { position: relative; z-index: 1; display: block; }
 
-.seal-kicker {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ember-hot);
-}
-
 .seal-title {
-  margin-top: 3px;
+  margin-top: 0;
   font-family: var(--font-display);
   font-weight: 720;
   font-size: 1.85rem;
   letter-spacing: -0.04em;
   line-height: 0.95;
+  color: var(--ink-on-paper);
 }
 
 .seal-hint {
-  margin-top: 6px;
+  margin-top: 8px;
   font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.06em;
-  color: rgba(239, 228, 210, 0.68);
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+  text-transform: none;
+  color: #5c4538;
 }
 
 html.is-open .seal {
