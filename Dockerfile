@@ -1,5 +1,5 @@
 FROM caddy:2-alpine
 COPY Caddyfile /etc/caddy/Caddyfile
-COPY index.html aperture.html lens.html prism.html film.html polar.html slits.html mirror.html aperture.js lens.js prism.js film.js polar.js slits.js mirror.js lab.css frame.js README.md .nojekyll /srv/
+COPY index.html aperture.html lens.html prism.html film.html polar.html slits.html mirror.html sky.html color.html aperture.js lens.js prism.js film.js polar.js slits.js mirror.js sky.js color.js lab.css frame.js README.md .nojekyll /srv/
 EXPOSE 8080
 CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
