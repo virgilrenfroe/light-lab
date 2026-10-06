@@ -4,13 +4,13 @@ Interactive light and optics curriculum for intro physics, media-arts, and instr
 
 Own repo. Not part of noctuary-corridor.
 
-Eight lessons share one night stage. Module 01 cuts a beam. Module 02 bends what remains until the rays meet — or throws them apart. Module 03 splits the white beam by wavelength. Module 04 lets two reflections from a thin film interfere, so thickness and viewing angle pick the color. Module 05 keeps one wiggle of the wave: turn the analyzer and brightness follows Malus's law. Module 06 sends the beam through two slits. The waves overlap, and the screen shows bright and dark bars. Module 07 bounces the beam off a sheet you can flex. Angle in equals angle out, measured from the normal. Module 08 opens onto the sky. Short wavelengths scatter out of the beam, and a low sun turns red.
+Nine lessons share one night stage. Module 01 cuts a beam. Module 02 bends what remains until the rays meet — or throws them apart. Module 03 splits the white beam by wavelength. Module 04 lets two reflections from a thin film interfere, so thickness and viewing angle pick the color. Module 05 keeps one wiggle of the wave: turn the analyzer and brightness follows Malus's law. Module 06 sends the beam through two slits. The waves overlap, and the screen shows bright and dark bars. Module 07 bounces the beam off a sheet you can flex. Angle in equals angle out, measured from the normal. Module 08 opens onto the sky. Short wavelengths scatter out of the beam, and a low sun turns red. Module 09 mixes color two ways on one card. Red, green, and blue lamps add to white. Cyan, magenta, and yellow pigments subtract toward black.
 
 ## Lessons
 
 | | Path | What it teaches |
 | --- | --- | --- |
-| Hub | `/` and `/index.html` | All eight modules. Strike the crease, or press Enter, to unfold the index. |
+| Hub | `/` and `/index.html` | All nine modules. Open the lessons, or press Enter, to unfold the index. |
 | 01 Aperture | `/aperture.html` | Occlusion, volumetric shafts, caustic pool |
 | 02 Lenses | `/lens.html` | Refraction to a focus, lens shape changing the bend |
 | 03 Prism | `/prism.html` | Dispersion, a spectrum from wavelength-dependent bend |
@@ -19,6 +19,7 @@ Eight lessons share one night stage. Module 01 cuts a beam. Module 02 bends what
 | 06 Double slit | `/slits.html` | Interference and diffraction. Fringe spacing y ≈ λ L / d. Cover one slit and the bars become one broad glow. |
 | 07 Mirrors | `/mirror.html` | Law of reflection, virtual and real images, concave focus, convex wide view |
 | 08 Scattering | `/sky.html` | Rayleigh scattering (about 1/λ⁴), a longer path reddening the sun, Mie scattering turning haze and clouds white |
+| 09 Color | `/color.html` | Additive RGB lamps (overlap to white) and subtractive CMY pigments (overlap to near-black) |
 
 Each lesson ticket includes a folded section, **Where you'll see this**. It stays shut so the bench stays clear. Open it for two or three jobs that use the idea on that page.
 
@@ -36,6 +37,7 @@ Ship path is Railway. Service `web` on project light-lab serves this tree after 
   - Double slit: `/slits.html`
   - Mirrors: `/mirror.html`
   - Scattering: `/sky.html`
+  - Color: `/color.html`
 
 GitHub Pages is not the ship path right now.
 
@@ -167,6 +169,21 @@ HUD craft labels:
 
 `N` noon, `L` low sun, `C` clear, `H` haze. Arrows nudge the sun rail when focus is not on the haze rail. Each rail takes the arrows while it is focused.
 
+## Module 09 — Color
+
+One card on a stand, in a dark room. Three gelled lamps aim at it. In Light, the lamps are red, green, and blue. Their pools add. Red and green make yellow, green and blue make cyan, blue and red make magenta, and all three make white. In Pigment, the same card is a sheet under a white lamp, and the three pools become cyan, magenta, and yellow ink. Cyan removes red, magenta removes green, and yellow removes blue. Two inks leave one color, and that overlap is darker. All three leave a near-black, not a hole and not a press black.
+
+The ink uses a simple optical-density curve, transmission = exp(−3.6 × density), then a small extra darkening where the ink is heavy so the color sits in the paper. Full ink on one channel leaves about 3% of that light. Three inks together are a near-black. Real process cyan, magenta, and yellow are less pure than this ideal. The bench keeps the ideal so the overlap colors stay readable. A press adds a fourth ink, black, because the three-color overlap is a muddy near-black. That is in the ticket, not a fourth rail.
+
+The three channel values and the mode each have a little mass: they ease toward the rail and can overshoot a fast drag. `prefers-reduced-motion` and `?still=1` snap them and hold the dust in the beams.
+
+HUD craft labels:
+
+- **RGB → white**
+- **CMY → black**
+
+`L` light, `P` pigment. Arrows nudge the first rail (red, or cyan) when focus is not on another rail. Each rail takes the arrows while it is focused.
+
 ## How it runs
 
 - One `WebGLRenderer` per lesson page. The hub is paper and type — no canvas. No page mounts two renderers.
@@ -178,7 +195,8 @@ HUD craft labels:
 - **Double slit, desktop:** a short fringe-lift pass on the same renderer. Not a second context. The screen bars are a shader on that renderer: intensity is the single-slit envelope times cos²(π δ / λ), with δ the path difference between the two slits. Covering one slit drops the cos² term.
 - **Mirrors, desktop:** a short glint-lift pass on the same renderer. Not a second context. The sheet is one shader: a sheer silver face, a brass rim, and a highlight that follows the bend. Narrow, coarse, and `?safe=1` keep that sheet and the rays, and skip the lift pass.
 - **Scattering, desktop:** a short sky-lift pass on the same renderer. Not a second context. The sky is one shader: Rayleigh color from the 1/λ⁴ transmittance, a longer path reddening the sun, and a wavelength-flat Mie veil when haze is up. The lift pass encodes the frame once. It does not run a second tone map. Narrow, coarse, and `?safe=1` keep the sky, the glass, and fewer cloud puffs, and skip the lift pass.
-- Narrow viewport (≤900px), a coarse pointer, or `?safe=1`: `EffectComposer` is never constructed. Aperture uses additive shaft quads. Lenses keep the ray filaments and skip the heat pass. Prism keeps the colored filaments and skips the spectral lift. The film keeps the interference shader, drops to four wavelength samples, and skips the sheen pass. Polarization keeps the filter shader, drops to four wavelength samples, skips the lift pass, and draws fewer wiggle ticks. The double slit keeps the fringe shader and the ripple sheet, and skips the lift pass. The mirror keeps the sheet shader and fewer rays, and skips the glint pass. The sky keeps the scattering shader, drops to three cloud puffs and fewer motes, and skips the lift pass. Device pixel ratio caps at 1.5.
+- **Color, desktop:** a short color-lift pass on the same renderer. Not a second context. The card is one shader: additive RGB pools in Light, and Beer–Lambert CMY absorption in Pigment. The lift pass encodes the frame once. It does not run a second tone map. Narrow, coarse, and `?safe=1` keep the card, the lamps, and fewer dust motes, and skip the lift pass.
+- Narrow viewport (≤900px), a coarse pointer, or `?safe=1`: `EffectComposer` is never constructed. Aperture uses additive shaft quads. Lenses keep the ray filaments and skip the heat pass. Prism keeps the colored filaments and skips the spectral lift. The film keeps the interference shader, drops to four wavelength samples, and skips the sheen pass. Polarization keeps the filter shader, drops to four wavelength samples, skips the lift pass, and draws fewer wiggle ticks. The double slit keeps the fringe shader and the ripple sheet, and skips the lift pass. The mirror keeps the sheet shader and fewer rays, and skips the glint pass. The sky keeps the scattering shader, drops to three cloud puffs and fewer motes, and skips the lift pass. The color card keeps the mixing shader, draws fewer dust motes, and skips the lift pass. Device pixel ratio caps at 1.5.
 - `prefers-reduced-motion: reduce` and `?still=1` hold auto-orbit, dust, shimmer, and the fold/burn motion. The hub opens already unfolded.
 
 ## Local
@@ -196,6 +214,7 @@ python3 -m http.server 8877
 - Double slit: http://127.0.0.1:8877/slits.html
 - Mirrors: http://127.0.0.1:8877/mirror.html
 - Scattering: http://127.0.0.1:8877/sky.html
+- Color: http://127.0.0.1:8877/color.html
 - Mobile path on a desktop: add `?safe=1`
 - Held motion: add `?still=1`
 

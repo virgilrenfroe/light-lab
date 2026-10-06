@@ -68,11 +68,10 @@
     if (track(event.clientX) > 0.48) finish();
   });
 
-  seal.addEventListener('pointerup', (event) => {
+  seal.addEventListener('pointerup', () => {
     if (!dragging) return;
     dragging = false;
-    if (track(event.clientX) > 0.48) finish();
-    else seal.style.setProperty('--strike', '0');
+    finish();
   });
 
   seal.addEventListener('pointercancel', () => {
@@ -82,6 +81,28 @@
 
   seal.addEventListener('keydown', (event) => {
     if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    finish();
+  });
+
+  seal.addEventListener('animationend', () => {
+    if (!root.classList.contains('is-open')) return;
+    seal.hidden = true;
+  });
+
+  document.querySelectorAll('.folio').forEach((folio) => {
+    folio.addEventListener('click', (event) => {
+      if (!root.classList.contains('is-locked')) return;
+      event.preventDefault();
+      finish();
+    });
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (!root.classList.contains('is-locked')) return;
+    if (event.key !== 'Enter') return;
+    const target = event.target;
+    if (target instanceof Element && target.closest('a') && !target.closest('.folio')) return;
     event.preventDefault();
     finish();
   });

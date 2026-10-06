@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="description" content="Light Lab module 09 — Color. White light is a mix. Red, green, and blue lamps add, and where all three meet the card goes white. Cyan, magenta, and yellow pigments subtract, and where all three overlap the page goes near black." />
+<meta name="theme-color" content="#07060c" />
+<title>Light Lab · Color</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./lab.css" />
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  }
+}
+</script>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var root = document.documentElement;
+  if (q.has('still') || matchMedia('(prefers-reduced-motion: reduce)').matches) root.classList.add('is-still');
+  if (q.has('embed')) root.classList.add('embed');
+  if (q.has('wall') || q.get('opaque') === '1') root.classList.add('wall');
+})();
+</script>
+</head>
+<body class="page-lesson page-color">
+<div id="stage" aria-label="Color mixing stage"></div>
+<div class="stage-fade" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="spine">
+  <span class="spine-mark">Light Lab</span>
+  <span class="spine-idx">09</span>
+</div>
+<header class="lesson-head">
+  <p class="kicker">Module 09 · add or subtract</p>
+  <h1>Color</h1>
+</header>
+<nav class="jumps" aria-label="Lessons">
+  <a href="index.html" data-lab>Index</a>
+  <a href="aperture.html" data-lab>Aperture</a>
+  <a href="lens.html" data-lab>Lenses</a>
+  <a href="prism.html" data-lab>Prism</a>
+  <a href="film.html" data-lab>Film</a>
+  <a href="polar.html" data-lab>Polar</a>
+  <a href="slits.html" data-lab>Slits</a>
+  <a href="mirror.html" data-lab>Mirror</a>
+  <a href="sky.html" data-lab>Sky</a>
+</nav>
+<div class="stamps">
+  <p class="stamp">Lamps add to white</p>
+  <p class="stamp">Three inks go dark</p>
+</div>
+<div class="dock">
+  <aside class="ticket">
+    <span class="burn" aria-hidden="true"></span>
+    <span class="dogear" aria-hidden="true"></span>
+    <div class="ticket-body">
+      <div class="tags">
+        <span class="tag">RGB → white</span>
+        <span class="tag">CMY → black</span>
+      </div>
+      <h2>White is a mix</h2>
+      <p class="readout" id="readout" aria-live="polite">Light. Red, green, and blue are up. Where all three beams meet, the card is white.</p>
+      <p class="note">White light is a mix of colors. The primary colors of light are red, green, and blue. On a stage those lamps add. Red and green overlap as yellow. Green and blue make cyan. Blue and red make magenta. Where all three meet, the card goes white. On paper, pigments subtract. The primary colors of these pigments are cyan, magenta, and yellow. Cyan ink removes red light. Magenta removes green. Yellow removes blue. Where two inks overlap, only one color of light remains, and the page is darker. Where all three overlap, almost no light comes back, and the page is near black.</p>
+    </div>
+    <p class="keys"><strong>Drag</strong> orbit · <strong>rails</strong> three channels · <strong>L</strong> light · <strong>P</strong> pigment</p>
+    <details class="world">
+      <summary>Where you'll see this</summary>
+      <div class="world-copy">
+        <p>A lighting designer, or a theatrical electrician, mixes red, green, and blue lamps on a stage. Where two beams cross, the colors add. Red and green make yellow. Green and blue make cyan. Blue and red make magenta. All three together make white. One set of lamps can paint many colors on the scenery.</p>
+        <p>A display engineer builds a screen from red, green, and blue subpixels. From a normal viewing distance the eye blends each trio into one color. When all three subpixels are full, that spot looks white. Turn one down and the white shifts. It is the same addition as the three lamps, in a tight grid.</p>
+        <p>A print technician, or a press operator, prints with cyan, magenta, yellow, and black ink. Cyan removes red light, magenta removes green, and yellow removes blue. Where those three overlap, the paper goes dark, but the dark is a muddy near-black, not a solid black. The black ink is there for type and for deep shadows, so the color inks do not have to carry that job alone.</p>
+      </div>
+    </details>
+  </aside>
+  <div class="shape">
+    <div class="modes" role="group" aria-label="Mix">
+      <button type="button" id="mode-light" aria-pressed="true">Light</button>
+      <button type="button" id="mode-pigment" aria-pressed="false">Pigment</button>
+    </div>
+    <div class="rails">
+      <div class="rail" id="rail-a" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="92" aria-orientation="vertical" aria-label="Red" aria-describedby="readout" style="--t: 0.92">
+        <span class="rail-name" id="name-a">Red</span>
+        <span class="rail-groove">
+          <span class="rail-fill"></span>
+          <span class="rail-knob"></span>
+        </span>
+      </div>
+      <div class="rail" id="rail-b" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="92" aria-orientation="vertical" aria-label="Green" aria-describedby="readout" style="--t: 0.92">
+        <span class="rail-name" id="name-b">Green</span>
+        <span class="rail-groove">
+          <span class="rail-fill"></span>
+          <span class="rail-knob"></span>
+        </span>
+      </div>
+      <div class="rail" id="rail-c" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="92" aria-orientation="vertical" aria-label="Blue" aria-describedby="readout" style="--t: 0.92">
+        <span class="rail-name" id="name-c">Blue</span>
+        <span class="rail-groove">
+          <span class="rail-fill"></span>
+          <span class="rail-knob"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="error" id="err"></div>
+<script src="./frame.js"></script>
+<script type="module" src="./color.js"></script>
+</body>
+</html>
