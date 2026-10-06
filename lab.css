@@ -132,7 +132,8 @@ button:focus-visible,
   z-index: 4;
   top: max(18px, env(safe-area-inset-top));
   left: max(64px, calc(env(safe-area-inset-left) + 58px));
-  width: min(920px, calc(100vw - 64px - 210px));
+  /* 400px leaves room for six lesson jumps. 15.5cqw still sizes the title to this column. */
+  width: min(920px, calc(100vw - 64px - 400px));
   max-width: none;
   container-type: inline-size;
   pointer-events: none;
@@ -546,14 +547,14 @@ button:focus-visible,
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 11px;
+  gap: 8px;
   perspective: 1200px;
 }
 
 .folio {
   position: relative;
   display: block;
-  padding: 13px 16px 14px;
+  padding: 11px 16px 11px;
   text-decoration: none;
   color: var(--ink-on-paper);
   background: linear-gradient(180deg, #f7f1e6, var(--paper-deep));
@@ -565,14 +566,16 @@ button:focus-visible,
   transition: transform 0.9s cubic-bezier(.16, .84, .28, 1);
 }
 
-.folio-b { margin-left: 12px; transition-delay: 0.08s; }
-.folio-c { margin-left: 24px; transition-delay: 0.14s; }
-.folio-d { margin-left: 36px; transition-delay: 0.2s; }
-.folio-e { margin-left: 48px; transition-delay: 0.26s; }
+.folio-b { margin-left: 10px; transition-delay: 0.08s; }
+.folio-c { margin-left: 20px; transition-delay: 0.14s; }
+.folio-d { margin-left: 30px; transition-delay: 0.2s; }
+.folio-e { margin-left: 40px; transition-delay: 0.26s; }
+.folio-f { margin-left: 50px; transition-delay: 0.32s; }
 
 .folio-name { white-space: nowrap; }
 
-.folio-e .folio-name { font-size: clamp(1.55rem, 2.15vw, 2.05rem); }
+.folio-e .folio-name,
+.folio-f .folio-name { font-size: clamp(1.45rem, 2vw, 1.9rem); }
 
 html.is-locked .folio {
   transform: perspective(1100px) rotateX(-78deg);
@@ -595,7 +598,7 @@ html.is-locked .folio {
 .folio-name {
   font-family: var(--font-display);
   font-weight: 720;
-  font-size: clamp(1.85rem, 2.6vw, 2.35rem);
+  font-size: clamp(1.65rem, 2.15vw, 2.05rem);
   letter-spacing: -0.045em;
   line-height: 0.9;
 }
@@ -608,14 +611,14 @@ html.is-locked .folio {
 }
 
 .folio-tag {
-  margin-top: 8px;
+  margin-top: 5px;
   font-family: var(--font-mono);
   font-size: 12px;
   color: #8d2c12;
 }
 
 .folio-go {
-  margin-top: 12px;
+  margin-top: 8px;
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.16em;
@@ -649,6 +652,7 @@ html.is-open .folio-b::before { animation-delay: 0.08s; }
 html.is-open .folio-c::before { animation-delay: 0.14s; }
 html.is-open .folio-d::before { animation-delay: 0.2s; }
 html.is-open .folio-e::before { animation-delay: 0.26s; }
+html.is-open .folio-f::before { animation-delay: 0.32s; }
 
 .folio:hover { transform: perspective(1100px) rotateX(0deg) translateY(-3px); }
 html.is-locked .folio:hover { transform: perspective(1100px) rotateX(-78deg); }
@@ -932,7 +936,8 @@ html.embed.wall body { background: #07060c !important; }
   .folio-b,
   .folio-c,
   .folio-d,
-  .folio-e { margin-left: 0; }
+  .folio-e,
+  .folio-f { margin-left: 0; }
 
   .jumps {
     gap: 4px 8px;
@@ -949,8 +954,41 @@ html.embed.wall body { background: #07060c !important; }
 
   .jumps a:hover { color: #8d2c12; }
 
-  .page-film .stamps {
+  .page-film .stamps,
+  .page-slits .stamps {
     top: calc(200px + env(safe-area-inset-top));
+  }
+
+  .page-slits .shape {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .page-slits .modes { flex: 1 0 100%; }
+
+  .page-slits .rails {
+    display: flex;
+    flex: 1 1 100%;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .page-slits .rails .rail {
+    flex: 1 1 0;
+    min-width: 0;
+    height: auto;
+    min-height: 0;
+  }
+
+  .page-slits .rail-name {
+    font-size: 9px;
+    letter-spacing: 0.04em;
+  }
+
+  .page-slits .ticket,
+  .page-slits .ticket:has(.world[open]) {
+    bottom: calc(124px + env(safe-area-inset-bottom));
+    max-height: 38vh;
   }
 
   .mast-title { font-size: clamp(3.15rem, 14vw, 4.2rem); }
@@ -965,7 +1003,8 @@ html.embed.wall body { background: #07060c !important; }
 
   .folio-name { font-size: 1.55rem; }
 
-  .folio-e .folio-name { font-size: 1.42rem; }
+  .folio-e .folio-name,
+  .folio-f .folio-name { font-size: 1.35rem; }
 
   .folio-tag { margin-top: 2px; font-size: 11px; }
 
@@ -989,10 +1028,38 @@ html.embed.wall body { background: #07060c !important; }
   .colophon { position: relative; left: auto; bottom: auto; margin-top: 22px; }
 }
 
+@media (min-width: 861px) {
+  .page-slits .shape {
+    width: 148px;
+    gap: 8px;
+  }
+
+  .page-slits .rails {
+    display: flex;
+    gap: 4px;
+    height: min(34vh, 240px);
+    min-height: 168px;
+  }
+
+  .page-slits .rails .rail {
+    flex: 1 1 0;
+    height: 100%;
+    min-height: 0;
+    padding: 6px 3px;
+  }
+
+  .page-slits .rail-name {
+    font-size: 9px;
+    letter-spacing: 0.05em;
+  }
+}
+
 @media (max-width: 860px) and (max-height: 700px) {
   .lesson-head h1 { font-size: clamp(1.55rem, 13cqw, 2.35rem); }
   .stamps { display: none; }
   .ticket,
   .ticket:has(.world[open]) { max-height: 34vh; }
+  .page-slits .ticket,
+  .page-slits .ticket:has(.world[open]) { max-height: 28vh; }
   .world-copy { max-height: 16vh; }
 }

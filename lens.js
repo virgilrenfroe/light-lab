@@ -33,8 +33,6 @@ function wantsStill() {
 const wall = document.documentElement.classList.contains('wall');
 const floatEmbed = document.documentElement.classList.contains('embed') && !wall;
 const stage = document.getElementById('stage');
-const pathPill = document.getElementById('path-pill');
-const motionPill = document.getElementById('motion-pill');
 const readout = document.getElementById('readout');
 const rail = document.getElementById('shape-rail');
 const modeConvex = document.getElementById('mode-convex');
@@ -601,7 +599,6 @@ function publishPath() {
   document.documentElement.dataset.lightPath = pathState.safe ? 'filaments' : 'heat';
   document.documentElement.dataset.composer = composer ? '1' : '0';
   document.documentElement.dataset.rendererCount = '1';
-  pathPill.textContent = pathState.safe ? 'Filaments' : 'Heat lift';
 }
 
 function ensureEnv() {
@@ -671,7 +668,6 @@ function applyBudget() {
 function syncMotion() {
   pathState.still = wantsStill();
   controls.autoRotate = !pathState.still;
-  motionPill.textContent = pathState.still ? 'Still' : 'Live';
   document.documentElement.classList.toggle('is-still', pathState.still);
   document.documentElement.dataset.motion = pathState.still ? 'still' : 'live';
 }
