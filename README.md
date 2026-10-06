@@ -48,6 +48,8 @@ HUD craft labels:
 - **occlusion → volumetric shafts**
 - **refraction → caustic pool**
 
+On a wide screen the shafts are an occlusion-map radial blur on the one renderer. A narrow screen, a coarse pointer, or `?safe=1` skip that pass and draw additive shaft quads. `?still=1` and reduced motion hold the scene.
+
 ## Module 02 — Lenses
 
 An optical bench. Parallel rays hit a glass lens and bend. Drag the bow: a thicker middle meets sooner. Flip to concave and the same refraction spreads the rays; the focus goes virtual, behind the glass. The center ray does not turn. A card down the bench shows the spot tighten when the focus lands on it.
@@ -58,6 +60,8 @@ HUD craft labels:
 - **lens shape → ray bend**
 
 `C` convex, `D` concave. Arrows nudge the bow. The rail is a slider.
+
+On a wide screen a short heat-lift pass blooms the bright glass. A narrow screen, a coarse pointer, or `?safe=1` skip that pass and keep the ray filaments. `?still=1` holds the orbit.
 
 ## Module 03 — Prism
 

@@ -33,8 +33,6 @@ function wantsStill() {
 const wall = document.documentElement.classList.contains('wall');
 const floatEmbed = document.documentElement.classList.contains('embed') && !wall;
 const stage = document.getElementById('stage');
-const pathPill = document.getElementById('path-pill');
-const motionPill = document.getElementById('motion-pill');
 
 // The page owns exactly one WebGLRenderer. Postprocessing reuses it.
 const renderer = new THREE.WebGLRenderer({
@@ -471,7 +469,6 @@ function publishPath() {
   document.documentElement.dataset.lightPath = pathState.safe ? 'shafts' : 'composer';
   document.documentElement.dataset.composer = composer ? '1' : '0';
   document.documentElement.dataset.rendererCount = '1';
-  pathPill.textContent = pathState.safe ? 'Shaft quads' : 'Radial blur';
 }
 
 function applyBudget() {
@@ -544,7 +541,6 @@ function destroyComposer() {
 function syncMotion() {
   pathState.still = wantsStill();
   controls.autoRotate = !pathState.still;
-  motionPill.textContent = pathState.still ? 'Still' : 'Live';
   document.documentElement.classList.toggle('is-still', pathState.still);
   document.documentElement.dataset.motion = pathState.still ? 'still' : 'live';
 }
