@@ -1301,6 +1301,21 @@ html.embed.wall body { background: #07060c !important; }
     width: 196px;
     gap: 8px;
   }
+
+  .page-absorb .world-copy { max-height: min(30vh, 280px); }
+}
+
+@media (max-width: 860px) {
+  .jumps {
+    right: 8px;
+    max-width: calc(100vw - 156px);
+    gap: 2px 6px;
+  }
+
+  .jumps a {
+    font-size: 9px;
+    letter-spacing: 0.03em;
+  }
 }
 
 @media (max-width: 860px) {

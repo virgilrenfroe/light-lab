@@ -549,19 +549,19 @@ const meterMat = new THREE.ShaderMaterial({
       float span = 0.78;
       float incTop = base + span * inc;
       float refTop = base + span * refl;
-      vec3 face = vec3(0.045, 0.034, 0.03);
+      vec3 face = vec3(0.04, 0.03, 0.027);
       vec3 col = face;
-      if (inc > 0.055) {
-        if (vUv.y < incTop && vUv.y > base) {
-          col = mix(vec3(0.07, 0.032, 0.026), hue * 0.28, 0.8);
+      if (inc > 0.07) {
+        if (vUv.y > base && vUv.y < incTop) {
+          col = vec3(0.055, 0.032, 0.028);
         }
-        if (vUv.y < refTop && vUv.y > base) {
-          col = hue * (0.42 + 1.05 * refl) + vec3(0.015);
+        if (vUv.y > base && vUv.y < refTop) {
+          col = hue * (0.55 + 1.2 * refl);
         }
-        float tick = smoothstep(0.014, 0.0, abs(vUv.y - incTop));
-        col = mix(col, min(hue * (0.55 + inc) + vec3(0.04), vec3(1.2)), tick);
+        float tick = smoothstep(0.01, 0.0, abs(vUv.y - incTop));
+        col = mix(col, hue * 0.45, tick);
       }
-      col = mix(face * 0.75, col, inside);
+      col = mix(face * 0.7, col, inside);
       float sheen = pow(max(0.0, 1.0 - abs(vUv.y - 0.45) * 1.4), 2.0) * 0.05;
       col += vec3(0.09, 0.07, 0.05) * sheen;
       gl_FragColor = vec4(col, 1.0);
