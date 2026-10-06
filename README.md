@@ -4,18 +4,19 @@ Interactive light and optics curriculum for intro physics, media-arts, and instr
 
 Own repo. Not part of noctuary-corridor.
 
-Five lessons share one night stage. Module 01 cuts a beam. Module 02 bends what remains until the rays meet — or throws them apart. Module 03 splits the white beam by wavelength. Module 04 lets two reflections from a thin film interfere, so thickness and viewing angle pick the color. Module 05 keeps one wiggle of the wave: turn the analyzer and brightness follows Malus's law.
+Six lessons share one night stage. Module 01 cuts a beam. Module 02 bends what remains until the rays meet — or throws them apart. Module 03 splits the white beam by wavelength. Module 04 lets two reflections from a thin film interfere, so thickness and viewing angle pick the color. Module 05 keeps one wiggle of the wave: turn the analyzer and brightness follows Malus's law. Module 06 sends the beam through two slits. The waves overlap, and the screen shows bright and dark bars.
 
 ## Lessons
 
 | | Path | What it teaches |
 | --- | --- | --- |
-| Hub | `/` and `/index.html` | All five modules. Strike the crease, or press Enter, to unfold the index. |
+| Hub | `/` and `/index.html` | All six modules. Strike the crease, or press Enter, to unfold the index. |
 | 01 Aperture | `/aperture.html` | Occlusion, volumetric shafts, caustic pool |
 | 02 Lenses | `/lens.html` | Refraction to a focus, lens shape changing the bend |
 | 03 Prism | `/prism.html` | Dispersion, a spectrum from wavelength-dependent bend |
 | 04 Thin film | `/film.html` | Interference, color bands from film thickness and viewing angle |
 | 05 Polarization | `/polar.html` | Malus's law, crossed filters, stress colors, glare at Brewster's angle |
+| 06 Double slit | `/slits.html` | Interference and diffraction. Fringe spacing y ≈ λ L / d. Cover one slit and the bars become one broad glow. |
 
 Each lesson ticket includes a folded section, **Where you'll see this**. It stays shut so the bench stays clear. Open it for two or three jobs that use the idea on that page.
 
@@ -30,6 +31,7 @@ Ship path is Railway. Service `web` on project light-lab serves this tree after 
   - Prism: `/prism.html`
   - Thin film: `/film.html`
   - Polarization: `/polar.html`
+  - Double slit: `/slits.html`
 
 GitHub Pages is not the ship path right now.
 
@@ -102,6 +104,23 @@ HUD craft labels:
 
 Arrows turn the analyzer. The rail runs from aligned (0°) through crossed (90°) to aligned again (180°).
 
+## Module 06 — Double slit
+
+One bench. A lamp shines on a card with two narrow slits, the waves spread and overlap, and a screen shows the bars. Where a crest meets a crest the screen is bright. Where a crest meets a trough it is dark. The bright-bar spacing is about y = λ L / d, with the screen 1.2 m from the slits. Closer slits (smaller d) make wider fringes. Red light has a longer wavelength than blue, so the red bars sit farther apart. Slit width changes the single-slit envelope: a wider slit narrows the glow that holds the bars.
+
+The picture uses the same spacing and wavelength for the ripple lanes and the screen, so the bright lanes and the bright bars move together. The ripple rings themselves are drawn larger than a real wavelength so the crests can be seen. Their spacing still grows with wavelength. The readout quotes the real fringe spacing in millimeters.
+
+Cover one slit and the second set of crests drops out. The bars disappear. A single broad glow remains. Both paths are needed for the interference bars.
+
+The slit spacing has a little mass: the bars ease toward the rail and can overshoot a fast drag. Wavelength, width, and the shutter ease too. `prefers-reduced-motion` and `?still=1` snap the values and hold the crests.
+
+HUD craft labels:
+
+- **slit spacing → fringe spacing**
+- **color → fringe width**
+
+`B` both slits, `O` one slit. Arrows nudge the spacing rail when focus is not on another rail. Each rail takes the arrows while it is focused.
+
 ## How it runs
 
 - One `WebGLRenderer` per lesson page. The hub is paper and type — no canvas. No page mounts two renderers.
@@ -110,7 +129,8 @@ Arrows turn the analyzer. The rail runs from aligned (0°) through crossed (90°
 - **Prism, desktop:** a short spectral-lift pass on the same renderer. Not a second context.
 - **Thin film, desktop:** a short wet-sheen pass on the same renderer. Not a second context. The film color is a shader on that one renderer: reflected intensity follows sin²(π δ / λ).
 - **Polarization, desktop:** a short lift pass on the same renderer. Not a second context. The plastic color is the Malus-and-stress shader above. The glare streak is drawn on that same renderer and follows sin² θ, with θ measured from vertical.
-- Narrow viewport (≤900px), a coarse pointer, or `?safe=1`: `EffectComposer` is never constructed. Aperture uses additive shaft quads. Lenses keep the ray filaments and skip the heat pass. Prism keeps the colored filaments and skips the spectral lift. The film keeps the interference shader, drops to four wavelength samples, and skips the sheen pass. Polarization keeps the filter shader, drops to four wavelength samples, skips the lift pass, and draws fewer wiggle ticks. Device pixel ratio caps at 1.5.
+- **Double slit, desktop:** a short fringe-lift pass on the same renderer. Not a second context. The screen bars are a shader on that renderer: intensity is the single-slit envelope times cos²(π δ / λ), with δ the path difference between the two slits. Covering one slit drops the cos² term.
+- Narrow viewport (≤900px), a coarse pointer, or `?safe=1`: `EffectComposer` is never constructed. Aperture uses additive shaft quads. Lenses keep the ray filaments and skip the heat pass. Prism keeps the colored filaments and skips the spectral lift. The film keeps the interference shader, drops to four wavelength samples, and skips the sheen pass. Polarization keeps the filter shader, drops to four wavelength samples, skips the lift pass, and draws fewer wiggle ticks. The double slit keeps the fringe shader and the ripple sheet, and skips the lift pass. Device pixel ratio caps at 1.5.
 - `prefers-reduced-motion: reduce` and `?still=1` hold auto-orbit, dust, shimmer, and the fold/burn motion. The hub opens already unfolded.
 
 ## Local
@@ -125,6 +145,7 @@ python3 -m http.server 8877
 - Prism: http://127.0.0.1:8877/prism.html
 - Thin film: http://127.0.0.1:8877/film.html
 - Polarization: http://127.0.0.1:8877/polar.html
+- Double slit: http://127.0.0.1:8877/slits.html
 - Mobile path on a desktop: add `?safe=1`
 - Held motion: add `?still=1`
 

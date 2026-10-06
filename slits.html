@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="description" content="Light Lab module 06 — Double slit. Light spreads through two narrow slits and the waves overlap. Crests that meet make bright bars. A crest that meets a trough makes a dark bar. Slit spacing, slit width, and color change the pattern." />
+<meta name="theme-color" content="#07060c" />
+<title>Light Lab · Double slit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./lab.css" />
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  }
+}
+</script>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var root = document.documentElement;
+  if (q.has('still') || matchMedia('(prefers-reduced-motion: reduce)').matches) root.classList.add('is-still');
+  if (q.has('embed')) root.classList.add('embed');
+  if (q.has('wall') || q.get('opaque') === '1') root.classList.add('wall');
+})();
+</script>
+</head>
+<body class="page-lesson page-slits">
+<div id="stage" aria-label="Double slit stage"></div>
+<div class="stage-fade" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="spine">
+  <span class="spine-mark">Light Lab</span>
+  <span class="spine-idx">06</span>
+</div>
+<header class="lesson-head">
+  <p class="kicker">Module 06 · two paths</p>
+  <h1>Double<br>slit</h1>
+</header>
+<nav class="jumps" aria-label="Lessons">
+  <a href="index.html" data-lab>Index</a>
+  <a href="aperture.html" data-lab>Aperture</a>
+  <a href="lens.html" data-lab>Lenses</a>
+  <a href="prism.html" data-lab>Prism</a>
+  <a href="film.html" data-lab>Film</a>
+  <a href="polar.html" data-lab>Polar</a>
+</nav>
+<div class="stamps">
+  <p class="stamp">Closer slits, wider bars</p>
+  <p class="stamp">Red sits wider than blue</p>
+</div>
+<div class="dock">
+  <aside class="ticket">
+    <span class="burn" aria-hidden="true"></span>
+    <span class="dogear" aria-hidden="true"></span>
+    <div class="ticket-body">
+      <div class="tags">
+        <span class="tag">slit spacing → fringe spacing</span>
+        <span class="tag">color → fringe width</span>
+      </div>
+      <h2>Crest meets crest</h2>
+      <p class="readout" id="readout" aria-live="polite">Two slits. Watch the waves overlap, and watch the bars on the screen.</p>
+      <p class="note">One lamp shines on a card with two narrow slits. The light spreads as it leaves each slit. That spread is diffraction. Past the card, the two waves overlap. Where a crest meets a crest, the screen is bright. Where a crest meets a trough, the screen is dark. Those bars are interference. The distance from one bright bar to the next is about y = λ L / d. Lambda is the wavelength. L is the distance to the screen, 1.2 m on this bench. d is the slit spacing. A smaller d makes a larger y, so closer slits give wider fringes. Red light has a longer wavelength than blue light, so red fringes are wider. A wider slit narrows the broad glow that holds the bars. Cover one slit and the bars vanish. Both paths are needed. One slit leaves a single broad glow.</p>
+    </div>
+    <p class="keys"><strong>Drag</strong> orbit · <strong>rails</strong> spacing, width, color · <strong>B</strong> both · <strong>O</strong> one</p>
+    <details class="world">
+      <summary>Where you'll see this</summary>
+      <div class="world-copy">
+        <p>A CD or DVD throws a rainbow sheen because the track is a tight set of grooves. Each groove scatters the light, and each color leaves at a different angle. A lab chemist or an astronomer uses a diffraction grating for the same reason. The grating spreads a beam into a spectrum, so they can see which wavelengths are there.</p>
+        <p>A structural biologist sends X-rays through a crystal. The atoms scatter the waves. The bright spots on the detector are a diffraction pattern. From the spacing of those spots, the scientist works out the shape of the molecule.</p>
+        <p>A photographer or a cinematographer can stop a lens down to a very small opening. The opening is so small that each point of light spreads as it passes through. The picture goes soft. That spread is the diffraction limit. A smaller opening makes a wider spread, the way a narrower slit widens the glow on this screen.</p>
+      </div>
+    </details>
+  </aside>
+  <div class="shape">
+    <div class="modes" role="group" aria-label="Slits">
+      <button type="button" id="mode-both" aria-pressed="true">Both</button>
+      <button type="button" id="mode-one" aria-pressed="false">One</button>
+    </div>
+    <div class="rail" id="space-rail" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="40" aria-orientation="vertical" aria-label="Slit spacing" aria-describedby="readout" style="--t: 0.40">
+      <span class="rail-name">Spacing</span>
+      <span class="rail-groove">
+        <span class="rail-fill"></span>
+        <span class="rail-knob"></span>
+      </span>
+    </div>
+    <div class="rail" id="width-rail" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="40" aria-orientation="vertical" aria-label="Slit width" aria-describedby="readout" style="--t: 0.40">
+      <span class="rail-name">Width</span>
+      <span class="rail-groove">
+        <span class="rail-fill"></span>
+        <span class="rail-knob"></span>
+      </span>
+    </div>
+    <div class="rail" id="color-rail" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="42" aria-orientation="vertical" aria-label="Wavelength" aria-describedby="readout" style="--t: 0.42">
+      <span class="rail-name">Color</span>
+      <span class="rail-groove">
+        <span class="rail-fill"></span>
+        <span class="rail-knob"></span>
+      </span>
+    </div>
+  </div>
+</div>
+<div class="error" id="err"></div>
+<script src="./frame.js"></script>
+<script type="module" src="./slits.js"></script>
+</body>
+</html>
