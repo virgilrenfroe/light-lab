@@ -80,6 +80,16 @@ button:focus-visible,
   background: radial-gradient(ellipse 68% 60% at 54% 46%, transparent 36%, rgba(0, 0, 0, 0.42) 100%);
 }
 
+.page-sky .stage-fade {
+  background: radial-gradient(ellipse 78% 72% at 52% 42%, transparent 50%, rgba(0, 0, 0, 0.2) 100%);
+}
+
+.page-sky .ticket,
+.page-sky .ticket:has(.world[open]) {
+  max-height: min(42vh, 390px);
+  overflow: hidden;
+}
+
 .grain {
   position: fixed;
   inset: 0;
@@ -572,11 +582,13 @@ button:focus-visible,
 .folio-e { margin-left: 32px; transition-delay: 0.18s; }
 .folio-f { margin-left: 40px; transition-delay: 0.22s; }
 .folio-g { margin-left: 48px; transition-delay: 0.26s; }
+.folio-h { margin-left: 56px; transition-delay: 0.3s; }
 
 .folio-name { white-space: nowrap; }
 
 .folio-e .folio-name,
-.folio-f .folio-name { font-size: clamp(1.45rem, 2vw, 1.9rem); }
+.folio-f .folio-name,
+.folio-h .folio-name { font-size: clamp(1.35rem, 1.7vw, 1.7rem); }
 
 html.is-locked .folio {
   transform: perspective(1100px) rotateX(-78deg);
@@ -657,6 +669,7 @@ html.is-open .folio-d::before { animation-delay: 0.14s; }
 html.is-open .folio-e::before { animation-delay: 0.18s; }
 html.is-open .folio-f::before { animation-delay: 0.22s; }
 html.is-open .folio-g::before { animation-delay: 0.26s; }
+html.is-open .folio-h::before { animation-delay: 0.3s; }
 
 .folio:hover { transform: perspective(1100px) rotateX(0deg) translateY(-3px); }
 html.is-locked .folio:hover { transform: perspective(1100px) rotateX(-78deg); }
@@ -734,6 +747,16 @@ html.is-open .seal {
     bottom: max(20px, 3vh);
     margin: 0;
   }
+
+  .folios { gap: 5px; }
+
+  .folio { padding: 6px 14px 6px; }
+
+  .folio-name { font-size: clamp(1.32rem, 1.6vw, 1.62rem); }
+
+  .folio-tag { margin-top: 2px; }
+
+  .folio-go { margin-top: 3px; }
 }
 
 /* Motion ------------------------------------------------------------- */
@@ -946,7 +969,8 @@ html.embed.wall body { background: #07060c !important; }
   .folio-d,
   .folio-e,
   .folio-f,
-  .folio-g { margin-left: 0; }
+  .folio-g,
+  .folio-h { margin-left: 0; }
 
   .jumps {
     gap: 4px 8px;
@@ -968,34 +992,41 @@ html.embed.wall body { background: #07060c !important; }
     top: calc(214px + env(safe-area-inset-top));
   }
 
-  .page-mirror .shape {
+  .page-mirror .shape,
+  .page-sky .shape {
     flex-wrap: wrap;
     gap: 6px;
   }
 
-  .page-mirror .modes { flex: 1 0 100%; }
+  .page-mirror .modes,
+  .page-sky .modes { flex: 1 0 100%; }
 
-  .page-mirror .rails {
+  .page-mirror .rails,
+  .page-sky .rails {
     display: flex;
     flex: 1 1 100%;
     gap: 6px;
     min-width: 0;
   }
 
-  .page-mirror .rails .rail {
+  .page-mirror .rails .rail,
+  .page-sky .rails .rail {
     flex: 1 1 0;
     min-width: 0;
     height: auto;
     min-height: 0;
   }
 
-  .page-mirror .rail-name {
+  .page-mirror .rail-name,
+  .page-sky .rail-name {
     font-size: 9px;
     letter-spacing: 0.04em;
   }
 
   .page-mirror .ticket,
-  .page-mirror .ticket:has(.world[open]) {
+  .page-mirror .ticket:has(.world[open]),
+  .page-sky .ticket,
+  .page-sky .ticket:has(.world[open]) {
     bottom: calc(124px + env(safe-area-inset-bottom));
     max-height: 38vh;
   }
@@ -1045,7 +1076,8 @@ html.embed.wall body { background: #07060c !important; }
   .folio-name { font-size: 1.55rem; }
 
   .folio-e .folio-name,
-  .folio-f .folio-name { font-size: 1.35rem; }
+  .folio-f .folio-name,
+  .folio-h .folio-name { font-size: 1.28rem; }
 
   .folio-tag { margin-top: 2px; font-size: 11px; }
 
@@ -1094,26 +1126,30 @@ html.embed.wall body { background: #07060c !important; }
     letter-spacing: 0.05em;
   }
 
-  .page-mirror .shape {
+  .page-mirror .shape,
+  .page-sky .shape {
     width: 168px;
     gap: 8px;
   }
 
-  .page-mirror .rails {
+  .page-mirror .rails,
+  .page-sky .rails {
     display: flex;
     gap: 4px;
     height: min(34vh, 240px);
     min-height: 168px;
   }
 
-  .page-mirror .rails .rail {
+  .page-mirror .rails .rail,
+  .page-sky .rails .rail {
     flex: 1 1 0;
     height: 100%;
     min-height: 0;
     padding: 6px 4px;
   }
 
-  .page-mirror .rail-name {
+  .page-mirror .rail-name,
+  .page-sky .rail-name {
     font-size: 9px;
     letter-spacing: 0.06em;
   }
@@ -1127,6 +1163,8 @@ html.embed.wall body { background: #07060c !important; }
   .page-slits .ticket,
   .page-slits .ticket:has(.world[open]),
   .page-mirror .ticket,
-  .page-mirror .ticket:has(.world[open]) { max-height: 28vh; }
+  .page-mirror .ticket:has(.world[open]),
+  .page-sky .ticket,
+  .page-sky .ticket:has(.world[open]) { max-height: 28vh; }
   .world-copy { max-height: 16vh; }
 }
