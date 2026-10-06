@@ -132,7 +132,7 @@ button:focus-visible,
   z-index: 4;
   top: max(18px, env(safe-area-inset-top));
   left: max(64px, calc(env(safe-area-inset-left) + 58px));
-  /* 400px leaves room for six lesson jumps. 15.5cqw still sizes the title to this column. */
+  /* 400px leaves room for the lesson jumps. 15.5cqw still sizes the title to this column. */
   width: min(920px, calc(100vw - 64px - 400px));
   max-width: none;
   container-type: inline-size;
@@ -538,8 +538,8 @@ button:focus-visible,
   position: absolute;
   z-index: 2;
   right: max(28px, 4vw);
-  bottom: 8vh;
-  width: min(440px, 40vw);
+  bottom: 3.5vh;
+  width: min(460px, 42vw);
 }
 
 .folios {
@@ -547,14 +547,14 @@ button:focus-visible,
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 8px;
+  gap: 6px;
   perspective: 1200px;
 }
 
 .folio {
   position: relative;
   display: block;
-  padding: 11px 16px 11px;
+  padding: 8px 14px 8px;
   text-decoration: none;
   color: var(--ink-on-paper);
   background: linear-gradient(180deg, #f7f1e6, var(--paper-deep));
@@ -566,11 +566,12 @@ button:focus-visible,
   transition: transform 0.9s cubic-bezier(.16, .84, .28, 1);
 }
 
-.folio-b { margin-left: 10px; transition-delay: 0.08s; }
-.folio-c { margin-left: 20px; transition-delay: 0.14s; }
-.folio-d { margin-left: 30px; transition-delay: 0.2s; }
-.folio-e { margin-left: 40px; transition-delay: 0.26s; }
-.folio-f { margin-left: 50px; transition-delay: 0.32s; }
+.folio-b { margin-left: 8px; transition-delay: 0.06s; }
+.folio-c { margin-left: 16px; transition-delay: 0.1s; }
+.folio-d { margin-left: 24px; transition-delay: 0.14s; }
+.folio-e { margin-left: 32px; transition-delay: 0.18s; }
+.folio-f { margin-left: 40px; transition-delay: 0.22s; }
+.folio-g { margin-left: 48px; transition-delay: 0.26s; }
 
 .folio-name { white-space: nowrap; }
 
@@ -598,7 +599,7 @@ html.is-locked .folio {
 .folio-name {
   font-family: var(--font-display);
   font-weight: 720;
-  font-size: clamp(1.65rem, 2.15vw, 2.05rem);
+  font-size: clamp(1.45rem, 1.85vw, 1.8rem);
   letter-spacing: -0.045em;
   line-height: 0.9;
 }
@@ -611,14 +612,16 @@ html.is-locked .folio {
 }
 
 .folio-tag {
-  margin-top: 5px;
+  margin-top: 3px;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11px;
+  line-height: 1.25;
+  white-space: nowrap;
   color: #8d2c12;
 }
 
 .folio-go {
-  margin-top: 8px;
+  margin-top: 4px;
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.16em;
@@ -648,11 +651,12 @@ html.is-locked .folio-go {
 }
 
 html.is-open .folio::before { animation: sear 0.85s ease forwards; }
-html.is-open .folio-b::before { animation-delay: 0.08s; }
-html.is-open .folio-c::before { animation-delay: 0.14s; }
-html.is-open .folio-d::before { animation-delay: 0.2s; }
-html.is-open .folio-e::before { animation-delay: 0.26s; }
-html.is-open .folio-f::before { animation-delay: 0.32s; }
+html.is-open .folio-b::before { animation-delay: 0.06s; }
+html.is-open .folio-c::before { animation-delay: 0.1s; }
+html.is-open .folio-d::before { animation-delay: 0.14s; }
+html.is-open .folio-e::before { animation-delay: 0.18s; }
+html.is-open .folio-f::before { animation-delay: 0.22s; }
+html.is-open .folio-g::before { animation-delay: 0.26s; }
 
 .folio:hover { transform: perspective(1100px) rotateX(0deg) translateY(-3px); }
 html.is-locked .folio:hover { transform: perspective(1100px) rotateX(-78deg); }
@@ -843,8 +847,12 @@ html.embed.wall body { background: #07060c !important; }
     height: 2px;
   }
 
+  .page-lesson .spine {
+    height: calc(56px + env(safe-area-inset-top));
+  }
+
   .lesson-head {
-    top: calc(54px + env(safe-area-inset-top));
+    top: calc(68px + env(safe-area-inset-top));
     left: 14px;
     width: calc(100vw - 28px);
     max-width: none;
@@ -858,7 +866,7 @@ html.embed.wall body { background: #07060c !important; }
   }
 
   .stamps {
-    top: calc(146px + env(safe-area-inset-top));
+    top: calc(160px + env(safe-area-inset-top));
     left: 14px;
     right: auto;
     align-items: flex-start;
@@ -937,7 +945,8 @@ html.embed.wall body { background: #07060c !important; }
   .folio-c,
   .folio-d,
   .folio-e,
-  .folio-f { margin-left: 0; }
+  .folio-f,
+  .folio-g { margin-left: 0; }
 
   .jumps {
     gap: 4px 8px;
@@ -956,7 +965,39 @@ html.embed.wall body { background: #07060c !important; }
 
   .page-film .stamps,
   .page-slits .stamps {
-    top: calc(200px + env(safe-area-inset-top));
+    top: calc(214px + env(safe-area-inset-top));
+  }
+
+  .page-mirror .shape {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .page-mirror .modes { flex: 1 0 100%; }
+
+  .page-mirror .rails {
+    display: flex;
+    flex: 1 1 100%;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .page-mirror .rails .rail {
+    flex: 1 1 0;
+    min-width: 0;
+    height: auto;
+    min-height: 0;
+  }
+
+  .page-mirror .rail-name {
+    font-size: 9px;
+    letter-spacing: 0.04em;
+  }
+
+  .page-mirror .ticket,
+  .page-mirror .ticket:has(.world[open]) {
+    bottom: calc(124px + env(safe-area-inset-bottom));
+    max-height: 38vh;
   }
 
   .page-slits .shape {
@@ -1015,7 +1056,7 @@ html.embed.wall body { background: #07060c !important; }
   .colophon { position: relative; left: auto; bottom: auto; margin-top: 14px; }
 }
 
-@media (min-width: 861px) and (max-height: 820px) {
+@media (min-width: 861px) and (max-height: 720px) {
   .stack {
     position: relative;
     right: auto;
@@ -1052,6 +1093,30 @@ html.embed.wall body { background: #07060c !important; }
     font-size: 9px;
     letter-spacing: 0.05em;
   }
+
+  .page-mirror .shape {
+    width: 168px;
+    gap: 8px;
+  }
+
+  .page-mirror .rails {
+    display: flex;
+    gap: 4px;
+    height: min(34vh, 240px);
+    min-height: 168px;
+  }
+
+  .page-mirror .rails .rail {
+    flex: 1 1 0;
+    height: 100%;
+    min-height: 0;
+    padding: 6px 4px;
+  }
+
+  .page-mirror .rail-name {
+    font-size: 9px;
+    letter-spacing: 0.06em;
+  }
 }
 
 @media (max-width: 860px) and (max-height: 700px) {
@@ -1060,6 +1125,8 @@ html.embed.wall body { background: #07060c !important; }
   .ticket,
   .ticket:has(.world[open]) { max-height: 34vh; }
   .page-slits .ticket,
-  .page-slits .ticket:has(.world[open]) { max-height: 28vh; }
+  .page-slits .ticket:has(.world[open]),
+  .page-mirror .ticket,
+  .page-mirror .ticket:has(.world[open]) { max-height: 28vh; }
   .world-copy { max-height: 16vh; }
 }

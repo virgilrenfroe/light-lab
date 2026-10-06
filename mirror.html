@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="description" content="Light Lab module 07 — Mirrors. A ray leaves a mirror at the same angle it arrived, measured from the normal. A flat mirror places a virtual image as far behind the glass as the object is in front. A concave curve brings parallel rays to a focus. A convex curve spreads them and shows a smaller, wider view." />
+<meta name="theme-color" content="#07060c" />
+<title>Light Lab · Mirrors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./lab.css" />
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  }
+}
+</script>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var root = document.documentElement;
+  if (q.has('still') || matchMedia('(prefers-reduced-motion: reduce)').matches) root.classList.add('is-still');
+  if (q.has('embed')) root.classList.add('embed');
+  if (q.has('wall') || q.get('opaque') === '1') root.classList.add('wall');
+})();
+</script>
+</head>
+<body class="page-lesson page-mirror">
+<div id="stage" aria-label="Mirrors stage"></div>
+<div class="stage-fade" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="spine">
+  <span class="spine-mark">Light Lab</span>
+  <span class="spine-idx">07</span>
+</div>
+<header class="lesson-head">
+  <p class="kicker">Module 07 · the ray returns</p>
+  <h1>Mirrors</h1>
+</header>
+<nav class="jumps" aria-label="Lessons">
+  <a href="index.html" data-lab>Index</a>
+  <a href="aperture.html" data-lab>Aperture</a>
+  <a href="lens.html" data-lab>Lenses</a>
+  <a href="prism.html" data-lab>Prism</a>
+  <a href="film.html" data-lab>Film</a>
+  <a href="polar.html" data-lab>Polar</a>
+  <a href="slits.html" data-lab>Slits</a>
+</nav>
+<div class="stamps">
+  <p class="stamp">Angle in = angle out</p>
+  <p class="stamp">As far behind as in front</p>
+</div>
+<div class="dock">
+  <aside class="ticket">
+    <span class="burn" aria-hidden="true"></span>
+    <span class="dogear" aria-hidden="true"></span>
+    <div class="ticket-body">
+      <div class="tags">
+        <span class="tag">angle in → angle out</span>
+        <span class="tag">curve → focus</span>
+      </div>
+      <h2>Same angle back</h2>
+      <p class="readout" id="readout" aria-live="polite">Flat mirror. Drag the curve, or move the lamp.</p>
+      <p class="note">The normal is the line straight out from the surface. A ray leaves at the same angle it arrived, both measured from that line. On a flat mirror the image is virtual: upright, the same size, and as far behind the glass as the lamp is in front. A concave curve brings parallel rays to a focus. Outside that point the image is real and upside down. Inside it, the image is virtual, upright, and larger. A convex curve spreads the rays and shows a smaller, wider view.</p>
+    </div>
+    <p class="keys"><strong>Drag</strong> orbit · <strong>curve</strong> and <strong>lamp</strong> rails · <strong>F</strong> flat · <strong>C</strong> concave · <strong>V</strong> convex</p>
+    <details class="world">
+      <summary>Where you'll see this</summary>
+      <div class="world-copy">
+        <p>An astronomer studies the sky with a large reflecting telescope. The main mirror is concave, and it brings starlight to a focus. A large mirror can be supported from the back. A lens that large can be held only at the rim, and the glass sags under its own weight. That is why the biggest telescopes use a mirror.</p>
+        <p>A dentist uses a small flat mouth mirror to see behind a tooth. The tooth is in front of the glass. The image the dentist looks at sits just as far behind the glass. It is a virtual image.</p>
+        <p>A driving instructor has new drivers check the convex mirror on the passenger side of a car. The curve spreads the rays and takes in a wider stretch of road. The image of a car behind you is smaller than the car itself. A smaller image looks farther away than it is. That is why the mirror says objects are closer than they appear.</p>
+      </div>
+    </details>
+  </aside>
+  <div class="shape">
+    <div class="modes" role="group" aria-label="Mirror curve">
+      <button type="button" id="mode-flat" aria-pressed="true">Flat</button>
+      <button type="button" id="mode-concave" aria-pressed="false">Concave</button>
+      <button type="button" id="mode-convex" aria-pressed="false">Convex</button>
+    </div>
+    <div class="rails">
+      <div class="rail" id="curve-rail" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-orientation="vertical" aria-label="Mirror curve" aria-describedby="readout" style="--t: 0.50">
+        <span class="rail-name">Curve</span>
+        <span class="rail-groove">
+          <span class="rail-fill"></span>
+          <span class="rail-knob"></span>
+        </span>
+      </div>
+      <div class="rail" id="lamp-rail" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="40" aria-orientation="vertical" aria-label="Lamp distance" aria-describedby="readout" style="--t: 0.40">
+        <span class="rail-name">Lamp</span>
+        <span class="rail-groove">
+          <span class="rail-fill"></span>
+          <span class="rail-knob"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="error" id="err"></div>
+<script src="./frame.js"></script>
+<script type="module" src="./mirror.js"></script>
+</body>
+</html>
