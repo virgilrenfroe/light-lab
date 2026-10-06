@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="description" content="Light Lab module 08 — Scattering. Sunlight holds every color. Tiny air molecules scatter blue far more than red. A low sun takes a longer path, so the sun turns red while the sky overhead stays blue. Larger particles scatter every color about the same, and the sky goes white or grey." />
+<meta name="theme-color" content="#07060c" />
+<title>Light Lab · Scattering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./lab.css" />
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  }
+}
+</script>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var root = document.documentElement;
+  if (q.has('still') || matchMedia('(prefers-reduced-motion: reduce)').matches) root.classList.add('is-still');
+  if (q.has('embed')) root.classList.add('embed');
+  if (q.has('wall') || q.get('opaque') === '1') root.classList.add('wall');
+})();
+</script>
+</head>
+<body class="page-lesson page-sky">
+<div id="stage" aria-label="Scattering stage"></div>
+<div class="stage-fade" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="spine">
+  <span class="spine-mark">Light Lab</span>
+  <span class="spine-idx">08</span>
+</div>
+<header class="lesson-head">
+  <p class="kicker">Module 08 · the long path</p>
+  <h1>Scattering</h1>
+</header>
+<nav class="jumps" aria-label="Lessons">
+  <a href="index.html" data-lab>Index</a>
+  <a href="aperture.html" data-lab>Aperture</a>
+  <a href="lens.html" data-lab>Lenses</a>
+  <a href="prism.html" data-lab>Prism</a>
+  <a href="film.html" data-lab>Film</a>
+  <a href="polar.html" data-lab>Polar</a>
+  <a href="slits.html" data-lab>Slits</a>
+  <a href="mirror.html" data-lab>Mirror</a>
+</nav>
+<div class="stamps">
+  <p class="stamp">Blue scatters more</p>
+  <p class="stamp">Low sun runs red</p>
+</div>
+<div class="dock">
+  <aside class="ticket">
+    <span class="burn" aria-hidden="true"></span>
+    <span class="dogear" aria-hidden="true"></span>
+    <div class="ticket-body">
+      <div class="tags">
+        <span class="tag">short wavelength → more scatter</span>
+        <span class="tag">longer path → redder sun</span>
+      </div>
+      <h2>Why the sky is blue</h2>
+      <p class="readout" id="readout" aria-live="polite">High sun. The path through the air is about as short as it gets.</p>
+      <p class="note">Sunlight holds every color. Air molecules scatter a short wavelength far more than a long one. That is Rayleigh scattering, about one over wavelength to the fourth power. Blue, near 440 nanometers, scatters about five times more than red, near 660. That blue is the sky. Lower the sun and the path through the air grows longer, so the sun turns orange and red. The sky overhead stays blue. Larger particles scatter every color about the same. The sky goes white or grey, and clouds look white. In the glass, the side of the beam glows blue and the card at the far side turns orange. The drops are larger than air molecules. The color that leaves through the side is the color missing at the end.</p>
+    </div>
+    <p class="keys"><strong>Drag</strong> orbit · <strong>sun</strong> and <strong>haze</strong> rails · <strong>N</strong> noon · <strong>L</strong> low · <strong>C</strong> clear · <strong>H</strong> haze</p>
+    <details class="world">
+      <summary>Where you'll see this</summary>
+      <div class="world-copy">
+        <p>A meteorologist, or an air-quality scientist, reads the color of the sky for particles. A milky white or grey veil often means larger bits in the air, such as haze, dust, or droplets. Those bits scatter every color about the same, so the blue washes out. A deep red sun means the direct beam has lost its short wavelengths. That happens on a long path through the air. Smoke can make the red deeper, because still more of the short wavelengths scatter aside before the light arrives.</p>
+        <p>A cinematographer, or a photographer, plans for golden hour. When the sun is low, its light travels through more air on the way to the set. Short wavelengths scatter out of that path. The light that remains is warm. Faces, walls, and dust in the beam pick up the orange.</p>
+        <p>A satellite remote-sensing scientist corrects each picture for the air in the way. Sunlight scatters in the atmosphere on the way down, and again on the way from the ground to the satellite. That scattered light adds a veil, and the veil is stronger in the blue. The correction takes the veil off, so the picture shows the land and the water.</p>
+      </div>
+    </details>
+  </aside>
+  <div class="shape">
+    <div class="rails">
+      <div class="rail" id="sun-rail" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="94" aria-orientation="vertical" aria-label="Sun height" aria-describedby="readout" style="--t: 0.94">
+        <span class="rail-name">Sun</span>
+        <span class="rail-groove">
+          <span class="rail-fill"></span>
+          <span class="rail-knob"></span>
+        </span>
+      </div>
+      <div class="rail" id="haze-rail" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-orientation="vertical" aria-label="Haze" aria-describedby="readout" style="--t: 0">
+        <span class="rail-name">Haze</span>
+        <span class="rail-groove">
+          <span class="rail-fill"></span>
+          <span class="rail-knob"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="error" id="err"></div>
+<script src="./frame.js"></script>
+<script type="module" src="./sky.js"></script>
+</body>
+</html>
