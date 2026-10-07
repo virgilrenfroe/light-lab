@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="description" content="Light Lab module 02 — Lenses. A converging or diverging lens refracts rays toward a focal point or away from a virtual one. Lens shape changes the bend." />
+<meta name="description" content="A lens is curved glass that bends light. A thicker middle brings rays together at a real focus; a thinner middle spreads them apart toward a virtual focus behind the glass." />
 <meta name="theme-color" content="#07060c" />
 <title>Light Lab · Lenses</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -29,8 +29,6 @@
 </script>
 </head>
 <body class="page-lesson page-lens">
-<div id="stage" aria-label="Lenses stage"></div>
-<div class="stage-fade" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
 <div class="spine">
   <span class="spine-mark">Light Lab</span>
@@ -39,6 +37,7 @@
 <header class="lesson-head">
   <p class="kicker">Module 02 · rays meet</p>
   <h1>Lenses</h1>
+  <p class="define">A lens is curved glass that bends light. A thicker middle brings rays together at a real focus; a thinner middle spreads them apart toward a virtual focus behind the glass.</p>
 </header>
 <nav class="jumps" aria-label="Lessons">
   <a href="index.html" data-lab>Index</a>
@@ -52,14 +51,32 @@
   <aside class="ticket">
     <span class="burn" aria-hidden="true"></span>
     <span class="dogear" aria-hidden="true"></span>
-    <div class="tags">
-      <span class="tag">refraction → focus</span>
-      <span class="tag">lens shape → ray bend</span>
+    <div class="ticket-body">
+      <div class="tags">
+        <span class="tag">refraction → focus</span>
+        <span class="tag">lens shape → ray bend</span>
+      </div>
+      <h2>Bend to a point</h2>
+      <p class="readout" id="readout" aria-live="polite">Convex glass. A thicker middle bends outer rays toward a real focus.</p>
+      <p class="note">A convex lens is thicker in the middle. It bends outer rays more than the center ray, so they meet at a focal point. You can catch that real focus on the card. A concave lens is thinner in the middle and bends the rays apart. They would meet only behind the glass, at a virtual focus. The center ray hits straight on, so it goes straight through.</p>
     </div>
-    <h2>Bend to a point</h2>
-    <p class="readout" id="readout" aria-live="polite">Convex glass. A thicker middle bends outer rays toward a real focus.</p>
-    <p class="note">A convex lens is thicker in the middle. It bends outer rays more than the center ray, so they meet at a focal point. That meeting place is a real focus. You can catch it on the card. A concave lens is thinner in the middle. It bends the rays apart. They would meet only behind the glass. That place is a virtual focus. The center ray hits straight on, so it goes straight through.</p>
     <p class="keys"><strong>Drag</strong> orbit · <strong>rail</strong> sets the curve · <strong>C</strong> convex · <strong>D</strong> concave</p>
+    <details class="world">
+      <summary>Where you'll see this</summary>
+      <div class="world-copy">
+        <p>An optometrist writes a glasses prescription in diopters. One diopter means a focal length of one meter. A convex lens bends rays together and corrects a farsighted eye. A concave lens spreads them and corrects a nearsighted eye. Contact lenses do the same job in a thinner piece.</p>
+        <p>A cinematographer picks a lens by its focal length. A short focal length brings the rays together sooner and takes in a wide view. A long one meets them farther away and takes in a tight view.</p>
+        <p>An astronomer uses a large lens or a curved mirror in a telescope to bring starlight to one focus. A lab biologist uses a microscope. Its objective is a strong convex lens that bends light from a tiny specimen toward a focus.</p>
+      </div>
+    </details>
+    <details class="world">
+      <summary>Common mistakes</summary>
+      <div class="world-copy">
+        <p>A thicker middle does not always make things bigger. A convex lens is thicker in the middle and bends rays together, so a close object can look bigger. A concave lens is thinner in the middle and bends rays apart, so things look smaller.</p>
+        <p>The focus is not always a spot you can catch on a card. A convex lens can make a real focus in front of the glass. A concave lens makes a virtual focus behind the glass, where the rays never actually meet.</p>
+        <p>The center ray is not the one that bends most. It hits the lens straight on and goes straight through. Rays farther from the center bend more.</p>
+      </div>
+    </details>
   </aside>
   <div class="shape">
     <div class="modes" role="group" aria-label="Lens type">
@@ -75,6 +92,8 @@
     </div>
   </div>
 </div>
+<div id="stage" aria-label="Lenses stage"></div>
+<div class="stage-fade" aria-hidden="true"></div>
 <div class="error" id="err"></div>
 <script src="./frame.js"></script>
 <script type="module" src="./lens.js"></script>
