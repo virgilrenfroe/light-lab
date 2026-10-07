@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="description" content="Light Lab module 01 — Aperture. Mullions occlude a beam into volumetric shafts. A lens bends what gets through into a caustic pool." />
+<meta name="description" content="An aperture is an opening that lets some light through and blocks the rest. You see those shafts only when dust or haze scatters the light toward your eye." />
 <meta name="theme-color" content="#07060c" />
 <title>Light Lab · Aperture</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -29,8 +29,6 @@
 </script>
 </head>
 <body class="page-lesson page-aperture">
-<div id="stage" aria-label="Aperture stage"></div>
-<div class="stage-fade" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
 <div class="spine">
   <span class="spine-mark">Light Lab</span>
@@ -39,6 +37,7 @@
 <header class="lesson-head">
   <p class="kicker">Module 01 · the beam is cut</p>
   <h1>Aperture</h1>
+  <p class="define">An aperture is an opening that lets some light through and blocks the rest. You see those shafts only when dust or haze scatters the light toward your eye.</p>
 </header>
 <nav class="jumps" aria-label="Lessons">
   <a href="index.html" data-lab>Index</a>
@@ -52,15 +51,35 @@
   <aside class="ticket">
     <span class="burn" aria-hidden="true"></span>
     <span class="dogear" aria-hidden="true"></span>
-    <div class="tags">
-      <span class="tag">occlusion → volumetric shafts</span>
-      <span class="tag">refraction → caustic pool</span>
+    <div class="ticket-body">
+      <div class="tags">
+        <span class="tag">occlusion → volumetric shafts</span>
+        <span class="tag">refraction → caustic pool</span>
+      </div>
+      <h2>Cut the beam</h2>
+      <p class="note" id="craft-note">The window bars block part of the beam. The open gaps let shafts through. A lens bends the light that gets through. Where those bent rays pile up, a bright pool forms.</p>
     </div>
-    <h2>Cut the beam</h2>
-    <p class="note" id="craft-note">The mullions block part of the beam. An occlusion map is a mask of what blocks the light. The open gaps let shafts through. A radial blur smears light outward from the lamp, so those shafts become visible in the air. Dust in a shaft scatters light. That scatter is why you can see the beam. The lens bends the light that gets through. Where the bent rays pile up, a bright caustic pool forms.</p>
     <p class="keys"><strong>Drag</strong> orbit · <strong>scroll</strong> dolly</p>
+    <details class="world">
+      <summary>Where you'll see this</summary>
+      <div class="world-copy">
+        <p>A cinematographer sets the f-stop, which changes how wide the lens opening is. A wider opening lets in more light. A smaller opening lets in less light and keeps more of the scene sharp.</p>
+        <p>A gaffer cuts a lamp with a flag or a window. Dust and haze scatter the light that gets through, so the beam shows up as shafts.</p>
+        <p>A photographer shoots sunlight through a glass of water or a pool. The curved surface bends the beam that gets through, and the light piles up in a bright pool.</p>
+      </div>
+    </details>
+    <details class="world">
+      <summary>Common mistakes</summary>
+      <div class="world-copy">
+        <p>A beam does not glow by itself. Shafts show up when dust, haze, or smoke scatters light toward your eye. In clean air you mostly see the spot where the beam lands.</p>
+        <p>A smaller opening does not only make a picture sharper. It also lets less light through, so the room or the picture gets darker.</p>
+        <p>The bright pool is not a shadow. A shadow is light that was blocked. The pool is light that a lens bent until the rays piled up.</p>
+      </div>
+    </details>
   </aside>
 </div>
+<div id="stage" aria-label="Aperture stage"></div>
+<div class="stage-fade" aria-hidden="true"></div>
 <div class="error" id="err"></div>
 <script src="./frame.js"></script>
 <script type="module" src="./aperture.js"></script>

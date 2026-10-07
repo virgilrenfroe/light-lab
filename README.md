@@ -10,7 +10,7 @@ Two lessons share one night stage. Module 01 cuts a beam. Module 02 bends what r
 
 | | Path | What it teaches |
 | --- | --- | --- |
-| Hub | `/` and `/index.html` | Both modules. Strike the crease, or press Enter, to unfold the index. |
+| Hub | `/` and `/index.html` | Both modules. Open the lessons: click, drag across the paper, or press Enter. |
 | 01 Aperture | `/aperture.html` | Occlusion, volumetric shafts, caustic pool |
 | 02 Lenses | `/lens.html` | Refraction to a focus, lens shape changing the bend |
 
