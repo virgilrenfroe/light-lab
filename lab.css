@@ -865,13 +865,7 @@ html.embed.wall body { background: #07060c !important; }
     gap: 12px;
   }
 
-  .stamps {
-    top: calc(210px + env(safe-area-inset-top));
-    left: 14px;
-    right: auto;
-    align-items: flex-start;
-    flex-direction: row;
-  }
+  .stamps { display: none; }
 
   .ticket,
   .ticket:has(.world[open]) {
